@@ -8,12 +8,16 @@ import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
 import NotFoundScreen from '../../pages/notFound-screen/notFound-screen';
 import PrivateRoute from '../private-route/private-route';
+import { Offers } from '../../types/offer';
+import { Reviews } from '../../types/review';
 
 type AppScreenProps = {
   placesFound: number;
+  offers: Offers;
+  reviews: Reviews;
 };
 
-function App({ placesFound }: AppScreenProps): JSX.Element {
+function App({ placesFound, offers, reviews }: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
