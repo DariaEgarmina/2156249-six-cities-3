@@ -1,9 +1,9 @@
 import { nanoid } from 'nanoid';
-import { Review } from '../types/review';
+import { Reviews } from '../types/review';
 
 const AVATAR_URL = 'https://i.pravatar.cc/128';
 
-export const Reviews: Review[] = [
+export const reviews: Reviews = [
   {
     id: nanoid(),
     date: '2024-01-15T10:30:00.000Z',

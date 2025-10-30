@@ -1,9 +1,9 @@
 import { nanoid } from 'nanoid';
-import { Offer } from '../types/offer';
+import { Offers } from '../types/offer';
 
 const IMAGE_URL = 'https://22.objects.htmlacademy.pro/static/destinations/';
 
-export const offers: Offer[] = [
+export const offers: Offers = [
   {
     id: nanoid(),
     title: 'Beautiful & luxurious studio at great location',
