@@ -2,13 +2,21 @@ import { Offer } from '../../types/offer';
 
 type PlaceCardProps = {
   offer: Offer;
+  isActive: boolean;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
 };
 
-function PlaceCard({ offer }: PlaceCardProps): JSX.Element {
+function PlaceCard({ offer, isActive, onMouseEnter, onMouseLeave }: PlaceCardProps): JSX.Element {
   const { title, type, price, isPremium, previewImage } = offer;
+  const cardClass = `cities__card place-card ${isActive ? 'place-card--active' : ''}`;
 
   return (
-    <article className="cities__card place-card">
+    <article
+      className={cardClass}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <div className="place-card__mark">
         {isPremium && <span>Premium</span>}
       </div>
