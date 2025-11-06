@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
 
 type PlaceCardProps = {
@@ -21,7 +23,7 @@ function PlaceCard({ offer, isActive, onMouseEnter, onMouseLeave }: PlaceCardPro
         {isPremium && <span>Premium</span>}
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={AppRoute.Offer}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -29,7 +31,7 @@ function PlaceCard({ offer, isActive, onMouseEnter, onMouseLeave }: PlaceCardPro
             height={200}
             alt={title}
           />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -60,9 +62,9 @@ function PlaceCard({ offer, isActive, onMouseEnter, onMouseLeave }: PlaceCardPro
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">
+          <Link to={AppRoute.Offer}>
             {title}
-          </a>
+          </Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
