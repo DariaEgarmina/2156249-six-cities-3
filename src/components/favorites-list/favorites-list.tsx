@@ -1,4 +1,4 @@
-import { Offers } from '../../types/offer';
+import { Offers } from '@/types/offer';
 import FavoritesItem from '../favorites-item/favorites-item';
 
 type FavoritesListProps = {

@@ -1,6 +1,6 @@
-import Logo from '../../components/logo/logo';
-import OffersList from '../../components/offers-list/offers-list';
-import { Offers } from '../../types/offer';
+import Logo from '@/components/logo/logo';
+import OffersList from '@/components/offers-list/offers-list';
+import { Offers } from '@/types/offer';
 
 type MainScreenProps = {
   offers: Offers;

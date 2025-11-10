@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import Logo from '../../components/logo/logo';
+import Logo from '@/components/logo/logo';
 
 function LoginScreen(): JSX.Element {
   return (

@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async';
-import { Reviews } from '../../types/review';
-import Logo from '../../components/logo/logo';
-import ReviewForm from '../../components/review-form/review-form';
-import ReviewsList from '../../components/reviews-list/reviews-list';
+import { Reviews } from '@/types/review';
+import Logo from '@/components/logo/logo';
+import ReviewForm from '@/components/review-form/review-form';
+import ReviewsList from '@/components/reviews-list/reviews-list';
 
 type OfferScreenProps = {
   reviews: Reviews;
