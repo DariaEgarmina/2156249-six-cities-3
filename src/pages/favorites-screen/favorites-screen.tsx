@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Offers } from '@/types/offer';
+import Header from '@/components/header/header';
 import Logo from '@/components/logo/logo';
-import UserNavigation from '@/components/user-navigation/user-navigation';
 import FavoritesList from '@/components/favorites-list/favorites-list';
 
 type FavoritesScreenProps = {
@@ -14,22 +14,7 @@ function FavoritesScreen({ favorites }: FavoritesScreenProps): JSX.Element {
       <Helmet>
         <title>6 cities: favorites</title>
       </Helmet>
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo type="header" />
-            </div>
-            <nav className="header__nav">
-              <UserNavigation
-                isAuth
-                userEmail="Oliver.conner@gmail.com"
-                favoriteCount={3}
-              />
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header isAuth userEmail="Oliver.conner@gmail.com" favoriteCount={3} />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">

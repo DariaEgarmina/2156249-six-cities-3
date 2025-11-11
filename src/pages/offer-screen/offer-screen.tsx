@@ -1,9 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import { Reviews } from '@/types/review';
-import Logo from '@/components/logo/logo';
+import Header from '@/components/header/header';
 import ReviewForm from '@/components/review-form/review-form';
 import ReviewsList from '@/components/reviews-list/reviews-list';
-import UserNavigation from '@/components/user-navigation/user-navigation';
 
 type OfferScreenProps = {
   reviews: Reviews;
@@ -15,22 +14,7 @@ function OfferScreen({ reviews }: OfferScreenProps): JSX.Element {
       <Helmet>
         <title>6 cities: offer</title>
       </Helmet>
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo type="header" />
-            </div>
-            <nav className="header__nav">
-              <UserNavigation
-                isAuth
-                userEmail="Oliver.conner@gmail.com"
-                favoriteCount={3}
-              />
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header isAuth userEmail="Oliver.conner@gmail.com" favoriteCount={3} />
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">

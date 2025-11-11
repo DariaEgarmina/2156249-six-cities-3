@@ -1,6 +1,5 @@
-import Logo from '@/components/logo/logo';
+import Header from '@/components/header/header';
 import OffersList from '@/components/offers-list/offers-list';
-import UserNavigation from '@/components/user-navigation/user-navigation';
 import { Offers } from '@/types/offer';
 
 type MainScreenProps = {
@@ -10,20 +9,7 @@ type MainScreenProps = {
 function MainScreen({ offers }: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo type="header" />
-            </div>
-            <UserNavigation
-              isAuth
-              userEmail="Oliver.conner@gmail.com"
-              favoriteCount={3}
-            />
-          </div>
-        </div>
-      </header>
+      <Header isAuth userEmail="Oliver.conner@gmail.com" favoriteCount={3} />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
