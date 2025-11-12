@@ -1,4 +1,7 @@
+import { useState } from 'react';
 import Header from '@/components/header/header';
+import CitiesTabs from '@/components/cities-tabs/cities-tabs';
+import { CITIES } from '@/const';
 import OffersList from '@/components/offers-list/offers-list';
 import { Offers } from '@/types/offer';
 
@@ -7,47 +10,18 @@ type MainScreenProps = {
 };
 
 function MainScreen({ offers }: MainScreenProps): JSX.Element {
+  const [activeCity, setActiveCity] = useState(CITIES[0]);
+
   return (
     <div className="page page--gray page--main">
       <Header isAuth userEmail="Oliver.conner@gmail.com" favoriteCount={3} />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
-          </section>
-        </div>
+        <CitiesTabs
+          cities={CITIES}
+          activeCity={activeCity}
+          onCityChange={setActiveCity}
+        />
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
