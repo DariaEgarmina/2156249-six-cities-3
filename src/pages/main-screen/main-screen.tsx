@@ -36,7 +36,7 @@ function MainScreen({ offers }: MainScreenProps): JSX.Element {
                 currentSort={activeSort}
                 onSortChange={setActiveSort}
               />
-              <OffersList offers={offers} />
+              <OffersList offers={offers} cardType='main' />
             </section>
             <div className="cities__right-section">
               <Map className='cities__map' />
