@@ -1,5 +1,5 @@
 import { Offers } from '@/types/offer';
-import FavoriteCard from '../favorite-card/favorite-card';
+import PlaceCard from '../place-card/place-card';
 
 type FavoritesItemProps = {
   city: string;
@@ -18,7 +18,13 @@ function FavoritesItem({ city, offers }: FavoritesItemProps): JSX.Element {
       </div>
       <div className="favorites__places">
         {offers.map((offer) => (
-          <FavoriteCard key={offer.id} offer={offer} />
+          <PlaceCard
+            key={offer.id}
+            offer={offer}
+            cardType='favorites'
+            onMouseEnter={() => {}}
+            onMouseLeave={() => {}}
+          />
         ))}
       </div>
     </li>
