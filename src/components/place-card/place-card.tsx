@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { AppRoute, CardConfig } from '@/const';
 import { Offer } from '@/types/offer';
 import { CardType } from '@/types/card';
+import PremiumBadge from '../premium-badge/premium-badge';
 
 type PlaceCardProps = {
   offer: Offer;
@@ -30,7 +31,7 @@ function PlaceCard({
       onMouseLeave={onMouseLeave}
     >
       <div className="place-card__mark">
-        {isPremium && <span>Premium</span>}
+        {isPremium && <PremiumBadge />}
       </div>
       <div className={config.imageWrapperClass}>
         <Link to={AppRoute.Offer}>
