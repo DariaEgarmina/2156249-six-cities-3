@@ -1,9 +1,9 @@
 import { Link, generatePath } from 'react-router-dom';
-import clsx from 'clsx';
 import { AppRoute, CardConfig } from '@/const';
 import { Offer } from '@/types/offer';
 import { CardType } from '@/types/card';
 import Badge from '../badge/badge';
+import BookmarkButton from '../bookmark-button/bookmark-button';
 
 type PlaceCardProps = {
   offer: Offer;
@@ -21,8 +21,7 @@ function PlaceCard({
   const { title, type, price, isFavorite, isPremium, rating, previewImage } =
     offer;
   const config = CardConfig[cardType];
-  const ratingWidth =
-    cardType === 'favorites' ? '100%' : `${(rating / 5) * 100}%`;
+  const ratingWidth = `${(rating / 5) * 100}%`;
 
   return (
     <article
@@ -30,7 +29,7 @@ function PlaceCard({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      {isPremium && <Badge text='Premium' parentType='card' />}
+      {isPremium && <Badge text="Premium" parentType="card" />}
 
       <div className={config.imageWrapperClass}>
         <Link to={generatePath(AppRoute.Offer, { id: offer.id })}>
@@ -49,18 +48,8 @@ function PlaceCard({
             <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button
-            className={clsx('place-card__bookmark-button', 'button', {
-              'place-card__bookmark-button--active': isFavorite,
-            })}
-          >
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden">
-              {isFavorite ? 'In bookmarks' : 'To bookmarks'}
-            </span>
-          </button>
+
+          <BookmarkButton isFavorite={isFavorite} buttonType="card" />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

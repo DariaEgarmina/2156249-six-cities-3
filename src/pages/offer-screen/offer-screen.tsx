@@ -8,6 +8,7 @@ import ReviewsList from '@/components/reviews-list/reviews-list';
 import Map from '@/components/map/map';
 import NotFoundScreen from '../notFound-screen/notFound-screen';
 import Badge from '@/components/badge/badge';
+import BookmarkButton from '@/components/bookmark-button/bookmark-button';
 
 type OfferScreenProps = {
   offers: Offers;
@@ -23,7 +24,8 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
     return <NotFoundScreen />;
   }
 
-  const { isPremium } = offer;
+  const { title,isFavorite, isPremium, rating } = offer;
+  const ratingWidth = `${(rating / 5) * 100}%`;
 
   return (
     <div className="page">
@@ -81,22 +83,17 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              {isPremium && <Badge text='Premium' parentType='page' />}
+              {isPremium && <Badge text="Premium" parentType="page" />}
               <div className="offer__name-wrapper">
-                <h1 className="offer__name">{offer.title}</h1>
-                <button className="offer__bookmark-button button" type="button">
-                  <svg className="offer__bookmark-icon" width={31} height={33}>
-                    <use xlinkHref="#icon-bookmark" />
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <h1 className="offer__name">{title}</h1>
+                <BookmarkButton isFavorite={isFavorite} buttonType='page' />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: '80%' }} />
+                  <span style={{ width: ratingWidth }} />
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value">4.8</span>
+                <span className="offer__rating-value rating__value">{rating}</span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
