@@ -30,9 +30,8 @@ function PlaceCard({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <div className="place-card__mark">
-        {isPremium && <Badge text="Premium" />}
-      </div>
+      {isPremium && <Badge text='Premium' parentType='card' />}
+
       <div className={config.imageWrapperClass}>
         <Link to={generatePath(AppRoute.Offer, { id: offer.id })}>
           <img
@@ -70,7 +69,9 @@ function PlaceCard({
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={generatePath(AppRoute.Offer, { id: offer.id })}>{title}</Link>
+          <Link to={generatePath(AppRoute.Offer, { id: offer.id })}>
+            {title}
+          </Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

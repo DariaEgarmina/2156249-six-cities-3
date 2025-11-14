@@ -7,13 +7,14 @@ import ReviewForm from '@/components/review-form/review-form';
 import ReviewsList from '@/components/reviews-list/reviews-list';
 import Map from '@/components/map/map';
 import NotFoundScreen from '../notFound-screen/notFound-screen';
+import Badge from '@/components/badge/badge';
 
 type OfferScreenProps = {
-  reviews: Reviews;
   offers: Offers;
+  reviews: Reviews;
 };
 
-function OfferScreen({ reviews, offers }: OfferScreenProps): JSX.Element {
+function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
   const { id } = useParams();
 
   const offer = offers.find((item) => item.id === id);
@@ -21,6 +22,8 @@ function OfferScreen({ reviews, offers }: OfferScreenProps): JSX.Element {
   if (!offer) {
     return <NotFoundScreen />;
   }
+
+  const { isPremium } = offer;
 
   return (
     <div className="page">
@@ -78,13 +81,9 @@ function OfferScreen({ reviews, offers }: OfferScreenProps): JSX.Element {
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              <div className="offer__mark">
-                <span>Premium</span>
-              </div>
+              {isPremium && <Badge text='Premium' parentType='page' />}
               <div className="offer__name-wrapper">
-                <h1 className="offer__name">
-                  {offer.title}
-                </h1>
+                <h1 className="offer__name">{offer.title}</h1>
                 <button className="offer__bookmark-button button" type="button">
                   <svg className="offer__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />
@@ -167,7 +166,7 @@ function OfferScreen({ reviews, offers }: OfferScreenProps): JSX.Element {
               </section>
             </div>
           </div>
-          <Map className='offer__map'/>
+          <Map className="offer__map" />
         </section>
         <div className="container">
           <section className="near-places places">
