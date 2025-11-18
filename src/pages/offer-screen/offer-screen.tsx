@@ -7,7 +7,7 @@ import Header from '@/components/header/header';
 import ReviewForm from '@/components/review-form/review-form';
 import ReviewsList from '@/components/reviews-list/reviews-list';
 import Map from '@/components/map/map';
-import NotFoundScreen from '../notFound-screen/notFound-screen';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Badge from '@/components/badge/badge';
 import BookmarkButton from '@/components/bookmark-button/bookmark-button';
 import PlaceCard from '@/components/place-card/place-card';
