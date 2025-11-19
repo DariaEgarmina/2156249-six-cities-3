@@ -1,8 +1,8 @@
-import { Offers } from '@/types/offer';
+import { Offer } from '@/types/offer';
 import FavoritesItem from '../favorites-item/favorites-item';
 
 type FavoritesListProps = {
-  favorites: Offers;
+  favorites: Offer[];
 };
 
 function FavoritesList({ favorites }: FavoritesListProps): JSX.Element {
@@ -17,7 +17,7 @@ function FavoritesList({ favorites }: FavoritesListProps): JSX.Element {
       acc[cityName].push(offer);
       return acc;
     },
-    {} as Record<string, Offers>,
+    {} as Record<string, Offer[]>,
   );
 
   return (

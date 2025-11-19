@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import PlaceCard from '../place-card/place-card';
-import { Offers } from '@/types/offer';
+import { Offer } from '@/types/offer';
 import { CardType } from '@/types/card';
 
 type OffersListProps = {
-  offers: Offers;
+  offers: Offer[];
   cardType: CardType;
 };
 

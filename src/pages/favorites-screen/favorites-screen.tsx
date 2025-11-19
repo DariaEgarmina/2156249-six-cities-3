@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet-async';
-import { Offers } from '@/types/offer';
+import { Offer } from '@/types/offer';
 import Header from '@/components/header/header';
 import Logo from '@/components/logo/logo';
 import FavoritesList from '@/components/favorites-list/favorites-list';
 
 type FavoritesScreenProps = {
-  favorites: Offers;
+  favorites: Offer[];
 };
 
 function FavoritesScreen({ favorites }: FavoritesScreenProps): JSX.Element {

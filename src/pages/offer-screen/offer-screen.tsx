@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import clsx from 'clsx';
 import { Reviews } from '@/types/review';
-import { Offers } from '@/types/offer';
+import { FullOffer } from '@/types/offer';
 import Header from '@/components/header/header';
 import ReviewForm from '@/components/review-form/review-form';
 import ReviewsList from '@/components/reviews-list/reviews-list';
@@ -13,7 +13,7 @@ import BookmarkButton from '@/components/bookmark-button/bookmark-button';
 import PlaceCard from '@/components/place-card/place-card';
 
 type OfferScreenProps = {
-  offers: Offers;
+  offers: FullOffer[];
   reviews: Reviews;
 };
 

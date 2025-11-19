@@ -26,6 +26,19 @@ export type Offer = {
   isPremium: boolean;
   rating: number;
   previewImage: string;
+};
+
+export type FullOffer = {
+  id: string;
+  title: string;
+  type: string;
+  price: number;
+  city: City;
+  location: Location;
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  previewImage: string;
   description: string;
   bedrooms: number;
   goods: string[];
@@ -33,5 +46,3 @@ export type Offer = {
   images: string[];
   maxAdults: number;
 };
-
-export type Offers = Offer[];

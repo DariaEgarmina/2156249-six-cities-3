@@ -1,9 +1,9 @@
-import { Offers } from '@/types/offer';
+import { Offer } from '@/types/offer';
 import PlaceCard from '../place-card/place-card';
 
 type FavoritesItemProps = {
   city: string;
-  offers: Offers;
+  offers: Offer[];
 };
 
 function FavoritesItem({ city, offers }: FavoritesItemProps): JSX.Element {

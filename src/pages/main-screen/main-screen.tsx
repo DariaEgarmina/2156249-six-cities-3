@@ -4,11 +4,11 @@ import CitiesTabs from '@/components/cities-tabs/cities-tabs';
 import { CITIES } from '@/const';
 import SortingForm from '@/components/sorting-form/sorting-form';
 import OffersList from '@/components/offers-list/offers-list';
-import { Offers } from '@/types/offer';
+import { Offer } from '@/types/offer';
 import Map from '@/components/map/map';
 
 type MainScreenProps = {
-  offers: Offers;
+  offers: Offer[];
 };
 
 function MainScreen({ offers }: MainScreenProps): JSX.Element {
