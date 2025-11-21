@@ -5,10 +5,23 @@ type BookmarkButtonProps = {
   buttonType: 'card' | 'page';
 };
 
+const sizes = {
+  card: {
+    width: 18,
+    height: 19,
+  },
+  page: {
+    width: 31,
+    height: 33,
+  },
+};
+
 function BookmarkButton({
   isFavorite,
   buttonType,
 }: BookmarkButtonProps): JSX.Element {
+  const { width, height } = sizes[buttonType];
+
   return (
     <button
       className={clsx('button', {
@@ -25,8 +38,8 @@ function BookmarkButton({
           'place-card__bookmark-icon': buttonType === 'card',
           'offer__bookmark-icon': buttonType === 'page',
         })}
-        width={buttonType === 'card' ? 18 : 31}
-        height={buttonType === 'card' ? 19 : 33}
+        width={width}
+        height={height}
       >
         <use xlinkHref="#icon-bookmark" />
       </svg>

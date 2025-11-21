@@ -18,6 +18,7 @@ const sizes = {
 
 function Logo({ type }: LogoProps): JSX.Element {
   const { width, height } = sizes[type];
+
   return (
     <Link className={`${type}__logo-link`} to={AppRoute.Main}>
       <img
