@@ -15,6 +15,12 @@ function MainScreen({ offers }: MainScreenProps): JSX.Element {
   const [activeCity, setActiveCity] = useState(CITIES[0]);
   const [activeSort, setActiveSort] = useState('Popular');
 
+  //Временное решение
+  const amsterdamOffers = offers.filter(
+    (offer) => offer.city.name === 'Amsterdam'
+  );
+  const selectedCity = amsterdamOffers[0]?.city;
+
   return (
     <div className="page page--gray page--main">
       <Header isAuth userEmail="Oliver.conner@gmail.com" favoriteCount={3} />
@@ -36,10 +42,14 @@ function MainScreen({ offers }: MainScreenProps): JSX.Element {
                 currentSort={activeSort}
                 onSortChange={setActiveSort}
               />
-              <OffersList offers={offers} cardType='Main' />
+              <OffersList offers={offers} cardType="Main" />
             </section>
             <div className="cities__right-section">
-              <Map className='cities__map' />
+              <Map
+                className="cities__map"
+                city={selectedCity}
+                offers={amsterdamOffers}
+              />
             </div>
           </div>
         </div>
