@@ -9,15 +9,13 @@ import BookmarkButton from '../bookmark-button/bookmark-button';
 type PlaceCardProps = {
   offer: Offer;
   cardType: CardType;
-  onMouseEnter: () => void;
-  onMouseLeave: () => void;
+  onMouseEnter: (offerId: string) => void;
 };
 
 function PlaceCard({
   offer,
   cardType,
   onMouseEnter,
-  onMouseLeave,
 }: PlaceCardProps): JSX.Element {
   const { title, type, price, isFavorite, isPremium, rating, previewImage } =
     offer;
@@ -27,8 +25,7 @@ function PlaceCard({
   return (
     <article
       className={config.cardClass}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      onMouseEnter={() => onMouseEnter(offer.id)}
     >
       {isPremium && <Badge text="Premium" parentType="card" />}
 
