@@ -16,9 +16,8 @@ function MainScreen({ offers }: MainScreenProps): JSX.Element {
   const [activeSort, setActiveSort] = useState('Popular');
   const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
 
-  const handleCardHover = (offerId: string) => {
-    const currentOffer = offers.find((offer) => offer.id === offerId);
-    setSelectedOffer(currentOffer || null);
+  const handleCardHover = (offer: Offer) => {
+    setSelectedOffer(offer || null);
   };
 
   //Временное решение для теста
