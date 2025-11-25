@@ -155,6 +155,7 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
             className="offer__map"
             city={selectedCity}
             offers={offersForMap}
+            selectedOffer={offer}
           />
         </section>
         <div className="container">
@@ -168,8 +169,7 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
                   key={nearbyOffer.id}
                   offer={nearbyOffer}
                   cardType="Near"
-                  onMouseEnter={() => {}}
-                  onMouseLeave={() => {}}
+                  handleCardHover={() => {}}
                 />
               ))}
             </div>
