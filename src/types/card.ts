@@ -1,1 +1,1 @@
-export type CardType = 'Main' | 'Favorites' | 'Near';
+export type CardType = 'main' | 'favorites' | 'near';

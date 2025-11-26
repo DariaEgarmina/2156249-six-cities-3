@@ -21,9 +21,7 @@ function FavoritesItem({ city, offers }: FavoritesItemProps): JSX.Element {
           <PlaceCard
             key={offer.id}
             offer={offer}
-            cardType='Favorites'
-            onMouseEnter={() => {}}
-            onMouseLeave={() => {}}
+            cardType="favorites"
           />
         ))}
       </div>
