@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useAppSelector, useAppDispatch } from '@/hooks';
+import { setCity } from '@/store/actions';
 import Header from '@/components/header/header';
 import CitiesTabs from '@/components/cities-tabs/cities-tabs';
 import { CITIES } from '@/const';
@@ -12,7 +14,9 @@ type MainScreenProps = {
 };
 
 function MainScreen({ offers }: MainScreenProps): JSX.Element {
-  const [activeCity, setActiveCity] = useState(CITIES[0]);
+  const activeCity = useAppSelector((state) => state.city);
+  const dispatch = useAppDispatch();
+
   const [activeSort, setActiveSort] = useState('Popular');
   const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
 
@@ -36,7 +40,7 @@ function MainScreen({ offers }: MainScreenProps): JSX.Element {
         <CitiesTabs
           cities={CITIES}
           activeCity={activeCity}
-          onCityChange={setActiveCity}
+          onCityChange={(city) => dispatch(setCity(city))}
         />
         <div className="cities">
           <div className="cities__places-container container">
