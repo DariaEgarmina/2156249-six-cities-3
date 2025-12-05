@@ -1,15 +1,16 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { Offer } from '@/types/offer';
 import { setCity, uploadOffers } from './actions';
+import { offers } from '@/mocks/offers';
 
 type State = {
   city: string;
-  offersList: Offer[];
+  offers: Offer[];
 };
 
 const initialState: State = {
   city: 'Paris',
-  offersList: [],
+  offers: offers,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -18,7 +19,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.city = action.payload;
     })
     .addCase(uploadOffers, (state, action) => {
-      state.offersList = action.payload;
+      state.offers = action.payload;
     });
 });
 

@@ -25,7 +25,7 @@ function App({ offers, reviews }: AppScreenProps): JSX.Element {
       children: [
         {
           path: AppRoute.Main,
-          element: <MainScreen offers={offers} />,
+          element: <MainScreen />,
         },
         {
           path: AppRoute.Login,
