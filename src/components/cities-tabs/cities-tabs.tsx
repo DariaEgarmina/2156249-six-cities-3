@@ -1,9 +1,10 @@
 import clsx from 'clsx';
 import { useAppDispatch } from '@/hooks';
 import { setCity } from '@/store/actions';
+import { CITIES } from '@/const';
 
 type CitiesTabsProps = {
-  cities: string[];
+  cities: typeof CITIES;
   activeCity: string;
 };
 

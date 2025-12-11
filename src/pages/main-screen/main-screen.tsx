@@ -9,9 +9,9 @@ import OffersList from '@/components/offers-list/offers-list';
 import { City, Offer } from '@/types/offer';
 import Map from '@/components/map/map';
 import { CityCoordinates } from './const';
-import { SortType } from '@/components/sorting-form/const';
+import { SortType } from '@/types/sort';
 
-const getCityData = (cityName: string): City =>
+const getCityData = (cityName: typeof CITIES[number]): City =>
   CityCoordinates[cityName] || CityCoordinates['Paris'];
 
 function MainScreen(): JSX.Element {

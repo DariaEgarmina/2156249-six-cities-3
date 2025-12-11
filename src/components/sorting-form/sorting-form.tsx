@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import clsx from 'clsx';
 import { SortOptions } from './const';
-import { SortType } from './const';
+import { SortType } from '@/types/sort';
 
 type SortingFormProps = {
   currentSort: SortType;

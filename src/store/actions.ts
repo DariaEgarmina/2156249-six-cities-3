@@ -1,5 +1,4 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Offer } from '@/types/offer';
+import { CITIES } from '@/const';
 
-export const setCity = createAction<string>('setCity');
-export const uploadOffers = createAction<Offer[]>('uploadOffers');
+export const setCity = createAction<typeof CITIES[number]>('setCity');

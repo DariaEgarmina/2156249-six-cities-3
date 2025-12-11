@@ -1,6 +1,7 @@
 import { City } from '@/types/offer';
+import { CITIES } from '@/const';
 
-export const CityCoordinates: Record<string, City> = {
+export const CityCoordinates: Record<typeof CITIES[number], City> = {
   Paris: {
     name: 'Paris',
     location: { latitude: 48.8566, longitude: 2.3522, zoom: 12 },
