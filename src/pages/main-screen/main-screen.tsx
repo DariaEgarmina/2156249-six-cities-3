@@ -9,16 +9,22 @@ import OffersList from '@/components/offers-list/offers-list';
 import { City, Offer } from '@/types/offer';
 import Map from '@/components/map/map';
 import { CityCoordinates } from './const';
+import { useAppDispatch } from '@/hooks';
 import { SortType } from '@/types/sort';
+import { setActiveSort } from '@/store/actions';
 
 const getCityData = (cityName: typeof CITIES[number]): City =>
   CityCoordinates[cityName] || CityCoordinates['Paris'];
 
 function MainScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const handleSortChange = (sort: SortType) => dispatch(setActiveSort(sort));
+
   const activeCity = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
+  const activeSort = useAppSelector((state) => state.activeSort);
 
-  const [activeSort, setActiveSort] = useState<SortType>('Popular');
+  // const [activeSort, setActiveSort] = useState<SortType>('Popular');
   const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
 
   const handleCardHover = (offer: Offer | null) => {
@@ -67,7 +73,7 @@ function MainScreen(): JSX.Element {
                 </b>
                 <SortingForm
                   currentSort={activeSort}
-                  onSortChange={setActiveSort}
+                  onSortChange={handleSortChange}
                 />
                 <OffersList
                   offers={filteredOffers}
