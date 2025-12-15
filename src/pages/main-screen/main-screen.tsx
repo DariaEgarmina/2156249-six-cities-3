@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { useMemo } from 'react';
 import { useAppSelector } from '@/hooks';
 import Header from '@/components/header/header';
 import CitiesTabs from '@/components/cities-tabs/cities-tabs';
@@ -8,6 +9,7 @@ import OffersList from '@/components/offers-list/offers-list';
 import { City } from '@/types/offer';
 import Map from '@/components/map/map';
 import { CityCoordinates } from './const';
+import { sortOffers } from '@/utils';
 
 const getCityData = (cityName: (typeof CITIES)[number]): City =>
   CityCoordinates[cityName] || CityCoordinates['Paris'];
@@ -21,8 +23,9 @@ function MainScreen(): JSX.Element {
   const filteredOffers = offers.filter(
     (offer) => offer.city.name === activeCity
   );
-
   const isEmpty = filteredOffers.length === 0;
+
+  const sortedOffers = useMemo(() => sortOffers(filteredOffers, activeSort), [filteredOffers, activeSort]);
 
   return (
     <div className="page page--gray page--main">
@@ -57,7 +60,7 @@ function MainScreen(): JSX.Element {
                   {filteredOffers.length} places to stay in {activeCity}
                 </b>
                 <SortingForm currentSort={activeSort} />
-                <OffersList offers={filteredOffers} cardType="main" />
+                <OffersList offers={sortedOffers} cardType="main" />
               </section>
             )}
             {isEmpty ? (
