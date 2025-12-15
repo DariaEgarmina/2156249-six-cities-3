@@ -1,7 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import clsx from 'clsx';
-import { Reviews } from '@/types/review';
 import { FullOffer } from '@/types/offer';
 import Header from '@/components/header/header';
 import ReviewForm from '@/components/review-form/review-form';
@@ -11,16 +10,13 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Badge from '@/components/badge/badge';
 import BookmarkButton from '@/components/bookmark-button/bookmark-button';
 import PlaceCard from '@/components/place-card/place-card';
+import { useAppSelector } from '@/hooks';
 
-type OfferScreenProps = {
-  offers: FullOffer[];
-  reviews: Reviews;
-};
-
-function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
+function OfferScreen(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
+  const reviews = useAppSelector((state) => state.reviews);
   const { id } = useParams();
-
-  const offer = offers.find((item) => item.id === id);
+  const offer = offers.find((item) => item.id === id) as FullOffer;
 
   if (!offer) {
     return <NotFoundScreen />;

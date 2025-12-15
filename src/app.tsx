@@ -7,17 +7,8 @@ import FavoritesScreen from './pages/favorites-screen/favorites-screen';
 import OfferScreen from './pages/offer-screen/offer-screen';
 import NotFoundScreen from './pages/not-found-screen/not-found-screen';
 import PrivateRoute from './components/private-route/private-route';
-import { FullOffer } from './types/offer';
-import { Reviews } from './types/review';
 
-type AppScreenProps = {
-  offers: FullOffer[];
-  reviews: Reviews;
-};
-
-function App({ offers, reviews }: AppScreenProps): JSX.Element {
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
-
+function App(): JSX.Element {
   const router = createBrowserRouter([
     {
       path: '/',
@@ -35,13 +26,13 @@ function App({ offers, reviews }: AppScreenProps): JSX.Element {
           path: AppRoute.Favorites,
           element: (
             <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-              <FavoritesScreen favorites={favoriteOffers} />
+              <FavoritesScreen />
             </PrivateRoute>
           ),
         },
         {
           path: AppRoute.Offer,
-          element: <OfferScreen reviews={reviews} offers={offers} />,
+          element: <OfferScreen />,
         },
         {
           path: '*',

@@ -1,13 +1,16 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { Offer } from '@/types/offer';
+import { Review } from '@/types/review';
 import { setCity, setActiveSort, setSelectedOfferId } from './actions';
 import { offers } from '@/mocks/offers';
+import { reviews } from '@/mocks/reviews';
 import { CITIES } from '@/const';
 import { SortType } from '@/types/sort';
 
 type State = {
   city: (typeof CITIES)[number];
   offers: Offer[];
+  reviews: Review[];
   activeSort: SortType;
   selectedOfferId: string | null;
 };
@@ -15,6 +18,7 @@ type State = {
 const initialState: State = {
   city: CITIES[0],
   offers,
+  reviews,
   activeSort: 'Popular',
   selectedOfferId: null,
 };
