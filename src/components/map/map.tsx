@@ -34,35 +34,43 @@ function Map({
   const mapContainerRef = useRef(null);
   const map = useMap(mapContainerRef, city);
 
-  const markerLayerRef = useRef<leaflet.LayerGroup | null>(null);
+  useEffect(() => {
+    if (!map) {
+      return;
+    }
+
+    const markerLayer = leaflet.layerGroup().addTo(map);
+
+    offers.forEach((offer) => {
+      leaflet
+        .marker(
+          {
+            lat: offer.location.latitude,
+            lng: offer.location.longitude,
+          },
+          {
+            icon:
+              offer.id === selectedOfferId
+                ? currentCustomIcon
+                : defaultCustomIcon,
+          }
+        )
+        .addTo(markerLayer);
+    });
+
+    return () => {
+      map.removeLayer(markerLayer);
+    };
+  }, [map, offers, selectedOfferId]);
 
   useEffect(() => {
     if (map) {
-
-      if (!markerLayerRef.current) {
-        markerLayerRef.current = leaflet.layerGroup().addTo(map);
-      }
-
-      markerLayerRef.current.clearLayers();
-
-      offers.forEach((offer) => {
-        leaflet
-          .marker(
-            {
-              lat: offer.location.latitude,
-              lng: offer.location.longitude,
-            },
-            {
-              icon:
-                offer.id === selectedOfferId
-                  ? currentCustomIcon
-                  : defaultCustomIcon,
-            }
-          )
-          .addTo(markerLayerRef.current!);
-      });
+      map.setView(
+        [city.location.latitude, city.location.longitude],
+        city.location.zoom
+      );
     }
-  }, [map, offers, selectedOfferId]);
+  }, [map, city]);
 
   return <section className={clsx('map', className)} ref={mapContainerRef} />;
 }

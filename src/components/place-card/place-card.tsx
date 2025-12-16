@@ -5,28 +5,35 @@ import { Offer } from '@/types/offer';
 import { CardType } from '@/types/card';
 import Badge from '../badge/badge';
 import BookmarkButton from '../bookmark-button/bookmark-button';
+import { useAppDispatch } from '@/hooks';
+import { setSelectedOfferId } from '@/store/actions';
 
 type PlaceCardProps = {
   offer: Offer;
   cardType: CardType;
-  handleCardHover?: (offer: Offer | null) => void;
 };
 
-function PlaceCard({
-  offer,
-  cardType,
-  handleCardHover
-}: PlaceCardProps): JSX.Element {
-  const { title, type, price, isFavorite, isPremium, rating, previewImage } =
-    offer;
+function PlaceCard({ offer, cardType }: PlaceCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const {
+    id,
+    title,
+    type,
+    price,
+    isFavorite,
+    isPremium,
+    rating,
+    previewImage,
+  } = offer;
   const config = CardConfig[cardType];
   const ratingWidth = `${(rating / 5) * 100}%`;
 
   return (
     <article
       className={config.cardClass}
-      onMouseEnter={() => handleCardHover?.(offer)}
-      onMouseLeave={() => handleCardHover?.(null)}
+      onMouseEnter={() => dispatch(setSelectedOfferId(id))}
+      onMouseLeave={() => dispatch(setSelectedOfferId(null))}
     >
       {isPremium && <Badge text="Premium" parentType="card" />}
 

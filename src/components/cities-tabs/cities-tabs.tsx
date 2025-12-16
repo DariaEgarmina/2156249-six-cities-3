@@ -1,14 +1,16 @@
+import clsx from 'clsx';
+import { useAppDispatch } from '@/hooks';
+import { setCity } from '@/store/actions';
+import { CITIES } from '@/const';
+
 type CitiesTabsProps = {
-  cities: string[];
+  cities: typeof CITIES;
   activeCity: string;
-  onCityChange: (city: string) => void;
 };
 
-function CitiesTabs({
-  cities,
-  activeCity,
-  onCityChange,
-}: CitiesTabsProps): JSX.Element {
+function CitiesTabs({ cities, activeCity }: CitiesTabsProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
   return (
     <div className="tabs">
       <section className="locations container">
@@ -16,13 +18,13 @@ function CitiesTabs({
           {cities.map((city) => (
             <li key={city} className="locations__item">
               <a
-                className={`locations__item-link tabs__item ${
-                  city === activeCity ? 'tabs__item--active' : ''
-                }`}
+                className={clsx('locations__item-link tabs__item', {
+                  'tabs__item--active': city === activeCity,
+                })}
                 href="#"
                 onClick={(evt) => {
                   evt.preventDefault();
-                  onCityChange(city);
+                  dispatch(setCity(city));
                 }}
               >
                 <span>{city}</span>
