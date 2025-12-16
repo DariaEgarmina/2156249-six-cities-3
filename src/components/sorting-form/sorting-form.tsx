@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { useOnClickOutside } from 'usehooks-ts';
 import clsx from 'clsx';
 import { SortOptions } from './const';
 import { SortType } from '@/types/sort';
@@ -13,15 +14,21 @@ function SortingForm({
   currentSort,
 }: SortingFormProps): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const dispatch = useAppDispatch();
+
+  useOnClickOutside(formRef, () => {
+    setIsOpen(false);
+  });
+
   const handleOptionClick = (option: SortType) => {
     dispatch(setActiveSort(option));
     setIsOpen(false);
   };
 
   return (
-    <form className="places__sorting" action="#" method="get">
+    <form className="places__sorting" action="#" method="get" ref={formRef}>
       <span className="places__sorting-caption">Sort by </span>
       <span
         className="places__sorting-type"
