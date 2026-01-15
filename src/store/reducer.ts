@@ -8,7 +8,6 @@ import {
   loadOffers,
   requireAuthorization,
 } from './actions';
-import { offers } from '@/mocks/offers';
 import { reviews } from '@/mocks/reviews';
 import { CITIES, AuthorizationStatus } from '@/const';
 import { SortType } from '@/types/sort';
@@ -24,7 +23,7 @@ type State = {
 
 const initialState: State = {
   city: CITIES[0],
-  offers,
+  offers: [],
   reviews,
   activeSort: 'Popular',
   selectedOfferId: null,
