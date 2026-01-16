@@ -4,9 +4,21 @@ import { AppDispatch, State } from '.';
 import { Offer } from '@/types/offer';
 import { AuthData } from '@/types/auth-data';
 import { UserData } from '@/types/user-data';
-import { APIRoute, AuthorizationStatus } from '@/const';
-import { loadOffers, requireAuthorization } from './actions';
+import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '@/const';
+import { loadOffers, requireAuthorization, setError } from './actions';
 import { saveToken, dropToken } from '@/services/token';
+import { store } from '.';
+
+//Удаление сообщения об ошибке
+export const clearErrorAction = createAsyncThunk(
+  'error/clearError',
+  () => {
+    setTimeout(
+      () => store.dispatch(setError(null)),
+      TIMEOUT_SHOW_ERROR,
+    );
+  },
+);
 
 // Загрузка предложений
 export const fetchOffersAction = createAsyncThunk<
