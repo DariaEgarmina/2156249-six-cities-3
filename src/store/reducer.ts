@@ -2,9 +2,6 @@ import { createReducer } from '@reduxjs/toolkit';
 import { Offer } from '@/types/offer';
 import { Review } from '@/types/review';
 import {
-  setCity,
-  setActiveSort,
-  setSelectedOfferId,
   loadOffers,
   requireAuthorization,
   setError,
@@ -38,15 +35,6 @@ const initialState: State = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(setCity, (state, action) => {
-      state.city = action.payload;
-    })
-    .addCase(setActiveSort, (state, action) => {
-      state.activeSort = action.payload;
-    })
-    .addCase(setSelectedOfferId, (state, action) => {
-      state.selectedOfferId = action.payload;
-    })
     .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
     })
