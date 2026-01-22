@@ -10,22 +10,31 @@ import { City } from '@/types/offer';
 import Map from '@/components/map/map';
 import { CityCoordinates } from './const';
 import { sortOffers } from '@/utils';
+import {
+  getCity,
+  getOffers,
+  getActiveSort,
+  getSelectedOfferId,
+} from '@/store/offers';
 
 const getCityData = (cityName: (typeof CITIES)[number]): City =>
   CityCoordinates[cityName] || CityCoordinates['Paris'];
 
 function MainScreen(): JSX.Element {
-  const activeCity = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
-  const activeSort = useAppSelector((state) => state.activeSort);
-  const selectedOfferId = useAppSelector((state) => state.selectedOfferId);
+  const activeCity = useAppSelector(getCity);
+  const offers = useAppSelector(getOffers);
+  const activeSort = useAppSelector(getActiveSort);
+  const selectedOfferId = useAppSelector(getSelectedOfferId);
 
   const filteredOffers = offers.filter(
-    (offer) => offer.city.name === activeCity
+    (offer) => offer.city.name === activeCity,
   );
   const isEmpty = filteredOffers.length === 0;
 
-  const sortedOffers = useMemo(() => sortOffers(filteredOffers, activeSort), [filteredOffers, activeSort]);
+  const sortedOffers = useMemo(
+    () => sortOffers(filteredOffers, activeSort),
+    [filteredOffers, activeSort],
+  );
 
   return (
     <div className="page page--gray page--main">

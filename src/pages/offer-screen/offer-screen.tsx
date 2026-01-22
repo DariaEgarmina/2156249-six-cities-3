@@ -11,9 +11,10 @@ import Badge from '@/components/badge/badge';
 import BookmarkButton from '@/components/bookmark-button/bookmark-button';
 import PlaceCard from '@/components/place-card/place-card';
 import { useAppSelector } from '@/hooks';
+import { getOffers } from '@/store/offers';
 
 function OfferScreen(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(getOffers);
   const reviews = useAppSelector((state) => state.reviews);
   const { id } = useParams();
   const offer = offers.find((item) => item.id === id) as FullOffer;
