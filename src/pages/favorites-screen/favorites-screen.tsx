@@ -4,9 +4,10 @@ import { useAppSelector } from '@/hooks';
 import Header from '@/components/header/header';
 import Logo from '@/components/logo/logo';
 import FavoritesList from '@/components/favorites-list/favorites-list';
+import { getOffers } from '@/store/offers';
 
 function FavoritesScreen(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(getOffers);
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   return (
     <div className="page">

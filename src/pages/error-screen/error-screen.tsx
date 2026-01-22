@@ -1,5 +1,5 @@
 import { useAppDispatch } from '@/hooks';
-import { fetchOffersAction } from '@/store/api-actions';
+import { fetchOffersAction } from '@/store/offers';
 import './error-screen.css';
 
 function ErrorScreen(): JSX.Element {

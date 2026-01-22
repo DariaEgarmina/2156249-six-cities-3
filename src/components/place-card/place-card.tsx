@@ -6,7 +6,7 @@ import { CardType } from '@/types/card';
 import Badge from '../badge/badge';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import { useAppDispatch } from '@/hooks';
-import { setSelectedOfferId } from '@/store/actions';
+import { setSelectedOfferId } from '@/store/offers';
 
 type PlaceCardProps = {
   offer: Offer;

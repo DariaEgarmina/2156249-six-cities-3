@@ -4,15 +4,13 @@ import clsx from 'clsx';
 import { SortOptions } from './const';
 import { SortType } from '@/types/sort';
 import { useAppDispatch } from '@/hooks';
-import { setActiveSort } from '@/store/actions';
+import { setActiveSort } from '@/store/offers';
 
 type SortingFormProps = {
   currentSort: SortType;
 };
 
-function SortingForm({
-  currentSort,
-}: SortingFormProps): JSX.Element {
+function SortingForm({ currentSort }: SortingFormProps): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 

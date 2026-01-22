@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { useAppDispatch } from '@/hooks';
-import { setCity } from '@/store/actions';
+import { setCity } from '@/store/offers';
 import { CITIES } from '@/const';
 
 type CitiesTabsProps = {

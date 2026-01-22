@@ -8,11 +8,12 @@ import OfferScreen from './pages/offer-screen/offer-screen';
 import NotFoundScreen from './pages/not-found-screen/not-found-screen';
 import PrivateRoute from './components/private-route/private-route';
 import { useAppSelector } from './hooks';
+import { getOffersLoadingStatus } from './store/offers';
 import LoadingScreen from './pages/loading-screen/loading-screen';
 
 function App(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+  // const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isOffersDataLoading = useAppSelector(getOffersLoadingStatus);
 
   const router = createBrowserRouter([
     {
@@ -30,7 +31,7 @@ function App(): JSX.Element {
         {
           path: AppRoute.Favorites,
           element: (
-            <PrivateRoute authorizationStatus={authorizationStatus}>
+            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
               <FavoritesScreen />
             </PrivateRoute>
           ),
@@ -47,7 +48,11 @@ function App(): JSX.Element {
     },
   ]);
 
-  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+  // if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+  //   return <LoadingScreen />;
+  // }
+
+  if (isOffersDataLoading) {
     return <LoadingScreen />;
   }
 
