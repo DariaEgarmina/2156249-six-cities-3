@@ -38,7 +38,7 @@ function MainScreen(): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
-      <Header isAuth userEmail="Oliver.conner@gmail.com" favoriteCount={3} />
+      <Header />
       <main
         className={clsx('page__main', 'page__main--index', {
           'page__main--index-empty': isEmpty,

@@ -58,7 +58,7 @@ function OfferScreen(): JSX.Element {
       <Helmet>
         <title>6 cities: {offer.title}</title>
       </Helmet>
-      <Header isAuth userEmail="Oliver.conner@gmail.com" favoriteCount={3} />
+      <Header />
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
