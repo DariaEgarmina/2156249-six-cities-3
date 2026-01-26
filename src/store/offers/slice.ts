@@ -3,6 +3,7 @@ import { CITIES } from '@/const';
 import { OffersState } from './types';
 import { NameSpace } from '@/const';
 import { SortType } from '@/types/sort';
+import { Offer } from '@/types/offer';
 import { fetchOffersAction } from './api-actions';
 
 const initialState: OffersState = {
@@ -34,10 +35,13 @@ export const offersSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchOffersAction.fulfilled, (state, action) => {
-        state.offers = action.payload;
-        state.isLoading = false;
-      })
+      .addCase(
+        fetchOffersAction.fulfilled,
+        (state, action: PayloadAction<Offer[]>) => {
+          state.offers = action.payload;
+          state.isLoading = false;
+        },
+      )
       .addCase(fetchOffersAction.rejected, (state, action) => {
         state.isLoading = false;
         state.error =
@@ -46,5 +50,6 @@ export const offersSlice = createSlice({
   },
 });
 
-export const { setCity, setActiveSort, setSelectedOfferId } = offersSlice.actions;
+export const { setCity, setActiveSort, setSelectedOfferId } =
+  offersSlice.actions;
 export default offersSlice.reducer;
