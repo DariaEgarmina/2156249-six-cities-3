@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
 import Header from '@/components/header/header';
 import { useAppSelector, useAppDispatch } from '@/hooks';
@@ -10,6 +10,8 @@ import {
   getIsSubmitting,
   getAuthError,
 } from '@/store/auth';
+import { CITIES, AppRoute } from '@/const';
+import { setCity } from '@/store/offers';
 
 function LoginScreen(): JSX.Element {
   const [localError, setLocalError] = useState('');
@@ -20,6 +22,11 @@ function LoginScreen(): JSX.Element {
   const isAuthorized = useAppSelector(isAuth);
   const isSubmitting = useAppSelector(getIsSubmitting);
   const error = useAppSelector(getAuthError);
+
+  const randomCity = CITIES[Math.floor(Math.random() * CITIES.length)];
+  const handleRandomCityClick = () => {
+    dispatch(setCity(randomCity));
+  };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -100,9 +107,13 @@ function LoginScreen(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
+              <Link
+                className="locations__item-link"
+                to={AppRoute.Main}
+                onClick={handleRandomCityClick}
+              >
+                <span>{randomCity}</span>
+              </Link>
             </div>
           </section>
         </div>
