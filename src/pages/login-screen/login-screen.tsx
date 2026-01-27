@@ -4,15 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
 import Header from '@/components/header/header';
 import { useAppSelector, useAppDispatch } from '@/hooks';
-import { isAuth, loginAction } from '@/store/auth';
+import { isAuth, loginAction, getIsSubmitting } from '@/store/auth';
 
 function LoginScreen(): JSX.Element {
   const [localError, setLocalError] = useState('');
-
-  const isAuthorized = useAppSelector(isAuth);
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
+
+  const isAuthorized = useAppSelector(isAuth);
+  const isSubmitting = useAppSelector(getIsSubmitting);
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -60,6 +61,7 @@ function LoginScreen(): JSX.Element {
                   name="email"
                   placeholder="Email"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
@@ -70,6 +72,7 @@ function LoginScreen(): JSX.Element {
                   name="password"
                   placeholder="Password"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
               {localError && (
@@ -83,8 +86,9 @@ function LoginScreen(): JSX.Element {
               <button
                 className="login__submit form__submit button"
                 type="submit"
+                disabled={isSubmitting}
               >
-                Sign in
+                {isSubmitting ? 'Signing in...' : 'Sign in'}
               </button>
             </form>
           </section>
