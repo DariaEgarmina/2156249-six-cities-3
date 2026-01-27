@@ -4,7 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
 import Header from '@/components/header/header';
 import { useAppSelector, useAppDispatch } from '@/hooks';
-import { isAuth, loginAction, getIsSubmitting } from '@/store/auth';
+import {
+  isAuth,
+  loginAction,
+  getIsSubmitting,
+  getAuthError,
+} from '@/store/auth';
 
 function LoginScreen(): JSX.Element {
   const [localError, setLocalError] = useState('');
@@ -14,6 +19,7 @@ function LoginScreen(): JSX.Element {
 
   const isAuthorized = useAppSelector(isAuth);
   const isSubmitting = useAppSelector(getIsSubmitting);
+  const error = useAppSelector(getAuthError);
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -75,12 +81,12 @@ function LoginScreen(): JSX.Element {
                   disabled={isSubmitting}
                 />
               </div>
-              {localError && (
+              {(localError || error) && (
                 <div
                   className="login__error"
                   style={{ color: 'red', marginBottom: '10px' }}
                 >
-                  {localError}
+                  {localError || error}
                 </div>
               )}
               <button
