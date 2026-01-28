@@ -14,7 +14,7 @@ function FavoritesScreen(): JSX.Element {
       <Helmet>
         <title>6 cities: favorites</title>
       </Helmet>
-      <Header isAuth userEmail="Oliver.conner@gmail.com" favoriteCount={3} />
+      <Header />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">

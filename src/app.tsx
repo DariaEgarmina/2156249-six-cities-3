@@ -10,9 +10,10 @@ import PrivateRoute from './components/private-route/private-route';
 import { useAppSelector } from './hooks';
 import { getOffersLoadingStatus } from './store/offers';
 import LoadingScreen from './pages/loading-screen/loading-screen';
+import { getAuthStatus } from './store/auth';
 
 function App(): JSX.Element {
-  // const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthStatus);
   const isOffersDataLoading = useAppSelector(getOffersLoadingStatus);
 
   const router = createBrowserRouter([
@@ -31,7 +32,7 @@ function App(): JSX.Element {
         {
           path: AppRoute.Favorites,
           element: (
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <PrivateRoute >
               <FavoritesScreen />
             </PrivateRoute>
           ),
@@ -48,11 +49,7 @@ function App(): JSX.Element {
     },
   ]);
 
-  // if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
-  //   return <LoadingScreen />;
-  // }
-
-  if (isOffersDataLoading) {
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
     return <LoadingScreen />;
   }
 

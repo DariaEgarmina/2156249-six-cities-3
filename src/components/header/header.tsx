@@ -3,17 +3,9 @@ import UserNavigation from '../user-navigation/user-navigation';
 
 type HeaderProps = {
   showNavigation?: boolean;
-  isAuth?: boolean;
-  userEmail?: string;
-  favoriteCount?: number;
 };
 
-function Header({
-  showNavigation = true,
-  isAuth = false,
-  userEmail,
-  favoriteCount
-}: HeaderProps): JSX.Element {
+function Header({ showNavigation = true }: HeaderProps): JSX.Element {
   return (
     <header className="header">
       <div className="container">
@@ -24,11 +16,7 @@ function Header({
 
           {showNavigation && (
             <nav className="header__nav">
-              <UserNavigation
-                isAuth={isAuth}
-                userEmail={userEmail}
-                favoriteCount={favoriteCount}
-              />
+              <UserNavigation />
             </nav>
           )}
         </div>
