@@ -12,44 +12,46 @@ import { getOffersLoadingStatus } from './store/offers';
 import LoadingScreen from './pages/loading-screen/loading-screen';
 import { getAuthStatus } from './store/auth';
 
+const router = createBrowserRouter([
+  {
+    errorElement: <NotFoundScreen />,
+    children: [
+      {
+        path: AppRoute.Main,
+        element: <MainScreen />,
+      },
+      {
+        path: AppRoute.Login,
+        element: <LoginScreen />,
+      },
+      {
+        path: AppRoute.Favorites,
+        element: (
+          <PrivateRoute>
+            <FavoritesScreen />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: AppRoute.Offer,
+        element: <OfferScreen />,
+      },
+      {
+        path: '*',
+        element: <NotFoundScreen />,
+      },
+    ],
+  },
+]);
+
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthStatus);
   const isOffersDataLoading = useAppSelector(getOffersLoadingStatus);
 
-  const router = createBrowserRouter([
-    {
-      path: '/',
-      errorElement: <NotFoundScreen />,
-      children: [
-        {
-          path: AppRoute.Main,
-          element: <MainScreen />,
-        },
-        {
-          path: AppRoute.Login,
-          element: <LoginScreen />,
-        },
-        {
-          path: AppRoute.Favorites,
-          element: (
-            <PrivateRoute >
-              <FavoritesScreen />
-            </PrivateRoute>
-          ),
-        },
-        {
-          path: AppRoute.Offer,
-          element: <OfferScreen />,
-        },
-        {
-          path: '*',
-          element: <NotFoundScreen />,
-        },
-      ],
-    },
-  ]);
-
-  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+  if (
+    authorizationStatus === AuthorizationStatus.Unknown ||
+    isOffersDataLoading
+  ) {
     return <LoadingScreen />;
   }
 

@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
 import Header from '@/components/header/header';
@@ -8,8 +8,9 @@ import {
   isAuth,
   loginAction,
   getIsSubmitting,
-  getAuthError,
+  // getAuthError,
 } from '@/store/auth';
+import { clearError } from '@/store/auth/slice';
 import { CITIES, AppRoute } from '@/const';
 import { setCity } from '@/store/offers';
 
@@ -21,9 +22,12 @@ function LoginScreen(): JSX.Element {
 
   const isAuthorized = useAppSelector(isAuth);
   const isSubmitting = useAppSelector(getIsSubmitting);
-  const error = useAppSelector(getAuthError);
+  // const error = useAppSelector(getAuthError);
 
-  const randomCity = CITIES[Math.floor(Math.random() * CITIES.length)];
+  const randomCity = useMemo(
+    () => CITIES[Math.floor(Math.random() * CITIES.length)],
+    [],
+  );
   const handleRandomCityClick = () => {
     dispatch(setCity(randomCity));
   };
@@ -54,6 +58,13 @@ function LoginScreen(): JSX.Element {
       navigate('/');
     }
   }, [isAuthorized, navigate]);
+
+  useEffect(
+    () => () => {
+      dispatch(clearError());
+    },
+    [dispatch],
+  );
 
   return (
     <div className="page page--gray page--login">
@@ -88,12 +99,12 @@ function LoginScreen(): JSX.Element {
                   disabled={isSubmitting}
                 />
               </div>
-              {(localError || error) && (
+              {localError && (
                 <div
                   className="login__error"
                   style={{ color: 'red', marginBottom: '10px' }}
                 >
-                  {localError || error}
+                  {localError}
                 </div>
               )}
               <button
