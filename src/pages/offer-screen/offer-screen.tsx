@@ -1,7 +1,6 @@
 import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import clsx from 'clsx';
-import { FullOffer } from '@/types/offer';
 import Header from '@/components/header/header';
 import ReviewForm from '@/components/review-form/review-form';
 import ReviewsList from '@/components/reviews-list/reviews-list';
@@ -11,13 +10,15 @@ import Badge from '@/components/badge/badge';
 import BookmarkButton from '@/components/bookmark-button/bookmark-button';
 import PlaceCard from '@/components/place-card/place-card';
 import { useAppSelector } from '@/hooks';
-import { getOffers } from '@/store/offers';
+import { getOffer, getNearbyOffers } from '@/store/offer';
+import { getReviews } from '@/store/reviews';
 
 function OfferScreen(): JSX.Element {
-  const offers = useAppSelector(getOffers);
-  const reviews = useAppSelector((state) => state.reviews);
-  const { id } = useParams();
-  const offer = offers.find((item) => item.id === id) as FullOffer;
+  const offer = useAppSelector(getOffer);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const reviews = useAppSelector(getReviews);
+
+  // const { id } = useParams();
 
   if (!offer) {
     return <NotFoundScreen />;
@@ -43,12 +44,6 @@ function OfferScreen(): JSX.Element {
   const { name, avatarUrl, isPro } = host;
 
   const ratingWidth = `${(Math.round(rating) / 5) * 100}%`;
-
-  const nearbyOffers = offers
-    .filter(
-      (item) => item.city.name === offer.city.name && item.id !== offer.id
-    )
-    .slice(0, 3);
 
   const selectedCity = offer.city;
   const offersForMap = [offer, ...nearbyOffers];
