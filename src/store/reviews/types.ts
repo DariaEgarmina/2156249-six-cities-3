@@ -6,3 +6,8 @@ export type ReviewsState = {
   isSubmitting: boolean;
   error: string | null;
 };
+
+export type CommentData = {
+  comment: string;
+  rating: number;
+};

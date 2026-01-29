@@ -2,11 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { APIRoute } from '@/const';
 import { Review } from '@/types/review';
-
-export type CommentData = {
-  comment: string;
-  rating: number;
-};
+import { CommentData } from './types';
 
 export const fetchCommentsAction = createAsyncThunk<
   Review[],
