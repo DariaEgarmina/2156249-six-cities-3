@@ -1,5 +1,6 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import clsx from 'clsx';
 import Header from '@/components/header/header';
 import ReviewForm from '@/components/review-form/review-form';
@@ -9,16 +10,40 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Badge from '@/components/badge/badge';
 import BookmarkButton from '@/components/bookmark-button/bookmark-button';
 import PlaceCard from '@/components/place-card/place-card';
-import { useAppSelector } from '@/hooks';
-import { getOffer, getNearbyOffers } from '@/store/offer';
-import { getReviews } from '@/store/reviews';
+import { useAppSelector, useAppDispatch } from '@/hooks';
+import {
+  getOffer,
+  getNearbyOffers,
+  fetchOfferAction,
+  fetchNearbyOffersAction,
+  clearOffer,
+} from '@/store/offer';
+import {
+  getReviews,
+  fetchCommentsAction,
+  clearComments,
+} from '@/store/reviews';
 
 function OfferScreen(): JSX.Element {
+  const { id } = useParams();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOfferAction(id));
+      dispatch(fetchNearbyOffersAction(id));
+      dispatch(fetchCommentsAction(id));
+    }
+
+    return () => {
+      dispatch(clearOffer());
+      dispatch(clearComments());
+    };
+  }, [id, dispatch]);
+
   const offer = useAppSelector(getOffer);
   const nearbyOffers = useAppSelector(getNearbyOffers);
   const reviews = useAppSelector(getReviews);
-
-  // const { id } = useParams();
 
   if (!offer) {
     return <NotFoundScreen />;
@@ -117,7 +142,7 @@ function OfferScreen(): JSX.Element {
                     className={clsx(
                       'offer__avatar-wrapper',
                       'user__avatar-wrapper',
-                      { 'offer__avatar-wrapper--pro': isPro }
+                      { 'offer__avatar-wrapper--pro': isPro },
                     )}
                   >
                     <img
