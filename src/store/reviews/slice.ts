@@ -28,7 +28,10 @@ export const reviewsSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchCommentsAction.fulfilled, (state, action) => {
-        state.reviews = action.payload;
+        const sortedReviews = [...action.payload].sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+        );
+        state.reviews = sortedReviews;
         state.isLoading = false;
       })
       .addCase(fetchCommentsAction.rejected, (state, action) => {
