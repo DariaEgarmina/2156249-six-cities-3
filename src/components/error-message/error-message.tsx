@@ -18,14 +18,18 @@ function ErrorMessage(): JSX.Element | null {
   useEffect(() => {
     if (error) {
       const timer = setTimeout(() => {
-        dispatch(clearError());
-        dispatch(clearAuthError());
-        dispatch(clearReviewsError());
+        if (offersError) {
+          dispatch(clearError());
+        } else if (authError) {
+          dispatch(clearAuthError());
+        } else if (reviewsError) {
+          dispatch(clearReviewsError());
+        }
       }, TIMEOUT_SHOW_ERROR);
 
       return () => clearTimeout(timer);
     }
-  }, [error, dispatch]);
+  }, [error, offersError, authError, reviewsError, dispatch]);
 
   return error ? <div className="error-message">{error}</div> : null;
 }

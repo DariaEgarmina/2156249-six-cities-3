@@ -1,11 +1,10 @@
-import { useState, Fragment, FormEvent, useEffect } from 'react';
+import { useState, Fragment, FormEvent } from 'react';
 import { useParams } from 'react-router-dom';
 import { RatingValues, MIN_REVIEW_LENGTH, MAX_REVIEW_LENGTH } from './const';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import {
   getIsSubmitting,
   postCommentAction,
-  getReviewsError,
   clearReviewsError,
 } from '@/store/reviews';
 import { isAuth } from '@/store/auth';
@@ -16,17 +15,9 @@ function ReviewForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const isSubmitting = useAppSelector(getIsSubmitting);
   const isAuthorized = useAppSelector(isAuth);
-  const error = useAppSelector(getReviewsError);
 
   const [userComment, setUserComment] = useState<string>('');
   const [rating, setRating] = useState<string>('');
-
-  useEffect(() => {
-    if (!isSubmitting && !error) {
-      setUserComment('');
-      setRating('');
-    }
-  }, [isSubmitting, error]);
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -41,7 +32,13 @@ function ReviewForm(): JSX.Element {
             rating: Number(rating),
           },
         }),
-      );
+      )
+        .unwrap()
+        .then(() => {
+          setUserComment('');
+          setRating('');
+        })
+        .catch(() => {});
     }
   };
 

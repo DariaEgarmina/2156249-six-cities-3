@@ -55,12 +55,12 @@ export const reviewsSlice = createSlice({
         (state, action: PayloadAction<Review>) => {
           state.reviews.unshift(action.payload);
           state.isSubmitting = false;
+          state.error = null;
         },
       )
       .addCase(postCommentAction.rejected, (state, action) => {
         state.isSubmitting = false;
-        state.error =
-          action.error.message || 'Failed to send comment';
+        state.error = action.error.message || 'Failed to send comment';
       });
   },
 });
