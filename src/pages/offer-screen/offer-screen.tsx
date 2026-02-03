@@ -17,14 +17,9 @@ import {
   getNearbyOffers,
   fetchOfferAction,
   fetchNearbyOffersAction,
-  clearOffer,
   getIsOfferLoading,
 } from '@/store/offer';
-import {
-  getReviews,
-  fetchCommentsAction,
-  clearComments,
-} from '@/store/reviews';
+import { getReviews, fetchCommentsAction } from '@/store/reviews';
 import { formatType } from '@/utils';
 
 function OfferScreen(): JSX.Element {
@@ -37,11 +32,6 @@ function OfferScreen(): JSX.Element {
       dispatch(fetchNearbyOffersAction(id));
       dispatch(fetchCommentsAction(id));
     }
-
-    return () => {
-      dispatch(clearOffer());
-      dispatch(clearComments());
-    };
   }, [id, dispatch]);
 
   const isLoading = useAppSelector(getIsOfferLoading);
