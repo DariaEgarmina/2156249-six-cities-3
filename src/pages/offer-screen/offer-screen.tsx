@@ -6,7 +6,7 @@ import Header from '@/components/header/header';
 import ReviewForm from '@/components/review-form/review-form';
 import ReviewsList from '@/components/reviews-list/reviews-list';
 import Map from '@/components/map/map';
-import LoadingScreen from '../loading-screen/loading-screen';
+import Loading from '@/components/loading/loading';
 import Badge from '@/components/badge/badge';
 import BookmarkButton from '@/components/bookmark-button/bookmark-button';
 import PlaceCard from '@/components/place-card/place-card';
@@ -43,7 +43,7 @@ function OfferScreen(): JSX.Element {
   const error = useAppSelector(getOfferError);
 
   if (isLoading) {
-    return <LoadingScreen />;
+    return <Loading />;
   }
 
   if (error?.includes('404')) {

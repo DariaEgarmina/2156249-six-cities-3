@@ -1,6 +1,6 @@
-import './loading-screen.css';
+import './loading.css';
 
-function LoadingScreen(): JSX.Element {
+function Loading(): JSX.Element {
   return (
     <div
       className="loading-container"
@@ -12,4 +12,4 @@ function LoadingScreen(): JSX.Element {
   );
 }
 
-export default LoadingScreen;
+export default Loading;

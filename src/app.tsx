@@ -9,7 +9,7 @@ import NotFoundScreen from './pages/not-found-screen/not-found-screen';
 import PrivateRoute from './components/private-route/private-route';
 import { useAppSelector } from './hooks';
 import { getOffersLoadingStatus } from './store/offers';
-import LoadingScreen from './pages/loading-screen/loading-screen';
+import Loading from './components/loading/loading';
 import { getAuthStatus } from './store/auth';
 
 const router = createBrowserRouter([
@@ -56,7 +56,7 @@ function App(): JSX.Element {
     authorizationStatus === AuthorizationStatus.Unknown ||
     isOffersDataLoading
   ) {
-    return <LoadingScreen />;
+    return <Loading />;
   }
 
   return (
