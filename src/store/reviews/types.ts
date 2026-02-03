@@ -4,7 +4,8 @@ export type ReviewsState = {
   reviews: Review[];
   isLoading: boolean;
   isSubmitting: boolean;
-  error: string | null;
+  loadError: string | null;
+  submitError: string | null;
 };
 
 export type CommentData = {

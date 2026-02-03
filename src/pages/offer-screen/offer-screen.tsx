@@ -30,9 +30,14 @@ function OfferScreen(): JSX.Element {
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchOfferAction(id));
-      dispatch(fetchNearbyOffersAction(id));
-      dispatch(fetchCommentsAction(id));
+      dispatch(fetchOfferAction(id))
+        .unwrap()
+        .then(() => {
+          dispatch(fetchNearbyOffersAction(id));
+          dispatch(fetchCommentsAction(id));
+        })
+        .catch(() => {
+        });
     }
   }, [id, dispatch]);
 

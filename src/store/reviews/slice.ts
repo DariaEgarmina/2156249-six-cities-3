@@ -8,7 +8,8 @@ const initialState: ReviewsState = {
   reviews: [],
   isLoading: false,
   isSubmitting: false,
-  error: null,
+  loadError: null,
+  submitError: null,
 };
 
 export const reviewsSlice = createSlice({
@@ -18,15 +19,18 @@ export const reviewsSlice = createSlice({
     clearComments: (state) => {
       state.reviews = [];
     },
-    clearReviewsError: (state) => {
-      state.error = null;
+    clearReviewsLoadError: (state) => {
+      state.loadError = null;
+    },
+    clearReviewsSubmitError: (state) => {
+      state.submitError = null;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchCommentsAction.pending, (state) => {
         state.isLoading = true;
-        state.error = null;
+        state.loadError = null;
       })
       .addCase(
         fetchCommentsAction.fulfilled,
@@ -36,34 +40,35 @@ export const reviewsSlice = createSlice({
           );
           state.reviews = sortedReviews;
           state.isLoading = false;
+          state.loadError = null;
         },
       )
       .addCase(fetchCommentsAction.rejected, (state, action) => {
         state.isLoading = false;
-        if (action.error.message?.includes('404')) {
-          state.error = null;
-        } else {
-          state.error = action.error.message || 'Failed to load reviews';
-        }
+        state.loadError = action.error.message || 'Failed to load reviews';
+        state.submitError = action.error.message || 'Failed to load reviews';
       })
       .addCase(postCommentAction.pending, (state) => {
         state.isSubmitting = true;
-        state.error = null;
+        state.submitError = null;
       })
       .addCase(
         postCommentAction.fulfilled,
         (state, action: PayloadAction<Review>) => {
           state.reviews.unshift(action.payload);
           state.isSubmitting = false;
-          state.error = null;
+          state.submitError = null;
         },
       )
       .addCase(postCommentAction.rejected, (state, action) => {
         state.isSubmitting = false;
-        state.error = action.error.message || 'Failed to send comment';
+        if (!action.error.message?.includes('404')) {
+          state.submitError = action.error.message || 'Failed to send comment';
+        }
       });
   },
 });
 
-export const { clearComments, clearReviewsError } = reviewsSlice.actions;
+export const { clearComments, clearReviewsLoadError, clearReviewsSubmitError } =
+  reviewsSlice.actions;
 export default reviewsSlice.reducer;
