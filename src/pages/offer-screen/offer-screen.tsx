@@ -26,6 +26,7 @@ import { getReviews, fetchCommentsAction } from '@/store/reviews';
 import { formatType } from '@/utils';
 import { AppRoute } from '@/const';
 import ErrorPanel from '@/components/error-panel/error-panel';
+import { isAuth } from '@/store/auth';
 
 function OfferScreen(): JSX.Element {
   const { id } = useParams();
@@ -53,6 +54,7 @@ function OfferScreen(): JSX.Element {
   const reviews = useAppSelector(getReviews);
   const error = useAppSelector(getOfferError);
   const nearbyLoadError = useAppSelector(getNearbyLoadError);
+  const isAuthorized = useAppSelector(isAuth);
 
   if (isLoading) {
     return <Loading />;
@@ -183,7 +185,15 @@ function OfferScreen(): JSX.Element {
                   <span className="reviews__amount">{reviews.length}</span>
                 </h2>
                 <ReviewsList reviews={reviews} />
-                <ReviewForm />
+                {isAuthorized ? (
+                  <ReviewForm />
+                ) : (
+                  <div className="reviews__form">
+                    <p className="reviews__message" style={{ color: 'red' }}>
+                      Only authorized users can leave reviews
+                    </p>
+                  </div>
+                )}
               </section>
             </div>
           </div>

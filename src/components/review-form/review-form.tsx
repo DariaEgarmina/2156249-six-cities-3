@@ -7,14 +7,12 @@ import {
   postCommentAction,
   clearReviewsSubmitError,
 } from '@/store/reviews';
-import { isAuth } from '@/store/auth';
 
 function ReviewForm(): JSX.Element {
   const { id } = useParams();
 
   const dispatch = useAppDispatch();
   const isSubmitting = useAppSelector(getIsSubmitting);
-  const isAuthorized = useAppSelector(isAuth);
 
   const [userComment, setUserComment] = useState<string>('');
   const [rating, setRating] = useState<string>('');
@@ -43,21 +41,10 @@ function ReviewForm(): JSX.Element {
   };
 
   const isSubmitDisabled =
-    !isAuthorized ||
     rating === '' ||
     userComment.length < MIN_REVIEW_LENGTH ||
     userComment.length > MAX_REVIEW_LENGTH ||
     isSubmitting;
-
-  if (!isAuthorized) {
-    return (
-      <div className="reviews__form">
-        <p className="reviews__message" style={{ color: 'red' }}>
-          Only authorized users can leave reviews
-        </p>
-      </div>
-    );
-  }
 
   const handleRatingChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setRating(evt.target.value);
