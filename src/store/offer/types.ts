@@ -5,5 +5,6 @@ export type OfferState = {
   nearbyOffers: Offer[];
   isLoading: boolean;
   error: string | null;
-  nearbyError: string | null;
+  nearbyLoadError: string | null;
+  nearbyToastError: string | null;
 };

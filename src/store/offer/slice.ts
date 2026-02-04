@@ -9,7 +9,8 @@ const initialState: OfferState = {
   nearbyOffers: [],
   isLoading: false,
   error: null,
-  nearbyError: null,
+  nearbyLoadError: null,
+  nearbyToastError: null,
 };
 
 export const offerSlice = createSlice({
@@ -20,6 +21,12 @@ export const offerSlice = createSlice({
       state.offer = null;
       state.nearbyOffers = [];
     },
+    clearNearbyLoadError: (state) => {
+      state.nearbyLoadError = null;
+    },
+    clearNearbyToastError: (state) => {
+      state.nearbyToastError = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -27,7 +34,8 @@ export const offerSlice = createSlice({
         state.isLoading = true;
         state.error = null;
         state.nearbyOffers = [];
-        state.nearbyError = null;
+        state.nearbyLoadError = null;
+        state.nearbyToastError = null;
       })
       .addCase(
         fetchOfferAction.fulfilled,
@@ -47,11 +55,14 @@ export const offerSlice = createSlice({
         },
       )
       .addCase(fetchNearbyOffersAction.rejected, (state, action) => {
-        state.nearbyError =
+        state.nearbyLoadError =
+          action.error.message || 'Failed to load nearby places';
+        state.nearbyToastError =
           action.error.message || 'Failed to load nearby places';
       });
   },
 });
 
-export const { clearOffer } = offerSlice.actions;
+export const { clearOffer, clearNearbyLoadError, clearNearbyToastError } =
+  offerSlice.actions;
 export default offerSlice.reducer;

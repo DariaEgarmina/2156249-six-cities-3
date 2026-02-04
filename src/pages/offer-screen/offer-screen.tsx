@@ -19,7 +19,7 @@ import {
   fetchNearbyOffersAction,
   getIsOfferLoading,
   getOfferError,
-  getNearbyError,
+  getNearbyLoadError,
 } from '@/store/offer';
 import { getReviews, fetchCommentsAction } from '@/store/reviews';
 import { formatType } from '@/utils';
@@ -47,7 +47,7 @@ function OfferScreen(): JSX.Element {
   const nearbyOffers = useAppSelector(getNearbyOffers);
   const reviews = useAppSelector(getReviews);
   const error = useAppSelector(getOfferError);
-  const nearbyError = useAppSelector(getNearbyError);
+  const nearbyLoadError = useAppSelector(getNearbyLoadError);
 
   if (isLoading) {
     return <Loading />;
@@ -194,7 +194,7 @@ function OfferScreen(): JSX.Element {
             <h2 className="near-places__title">
               Other places in the neighbourhood
             </h2>
-            {nearbyError ? (
+            {nearbyLoadError ? (
               <ErrorPanel message="Failed to load nearby places. Please try again later." />
             ) : (
               <div className="near-places__list places__list">

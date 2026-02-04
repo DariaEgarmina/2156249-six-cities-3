@@ -7,4 +7,5 @@ export const getNearbyOffers = (state: State) =>
 export const getIsOfferLoading = (state: State) =>
   state[NameSpace.Offer].isLoading;
 export const getOfferError = (state: State) => state[NameSpace.Offer].error;
-export const getNearbyError = (state: State) => state[NameSpace.Offer].nearbyError;
+export const getNearbyLoadError = (state: State) => state[NameSpace.Offer].nearbyLoadError;
+export const getNearbyToastError = (state: State) => state[NameSpace.Offer].nearbyToastError;
