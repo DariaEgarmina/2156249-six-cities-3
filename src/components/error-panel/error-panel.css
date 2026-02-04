@@ -1,0 +1,9 @@
+.error-panel {
+  text-align: center;
+  padding: 40px 20px;
+  color: #ff0000;
+  border: 1px solid #ffcccc;
+  border-radius: 8px;
+  background-color: #fff5f5;
+  margin: 20px 0;
+}

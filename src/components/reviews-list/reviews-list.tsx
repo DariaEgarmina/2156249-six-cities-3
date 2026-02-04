@@ -2,6 +2,7 @@ import { Review } from '@/types/review';
 import ReviewItem from '../review-item/review-item';
 import { useAppSelector } from '@/hooks';
 import { getLoadError } from '@/store/reviews';
+import ErrorPanel from '../error-panel/error-panel';
 
 type ReviewsListProps = {
   reviews: Review[];
@@ -12,19 +13,7 @@ function ReviewsList({ reviews }: ReviewsListProps): JSX.Element {
 
   if (loadReviewsError) {
     return (
-      <div
-        style={{
-          textAlign: 'center',
-          padding: '40px 20px',
-          color: '#ff0000',
-          border: '1px solid #ffcccc',
-          borderRadius: '8px',
-          backgroundColor: '#fff5f5',
-          margin: '20px 0',
-        }}
-      >
-        Failed to load reviews. Please try again later.
-      </div>
+      <ErrorPanel message="Failed to load reviews. Please try again later." />
     );
   }
 
