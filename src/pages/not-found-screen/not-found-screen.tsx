@@ -7,8 +7,8 @@ function NotFoundScreen(): JSX.Element {
       <Helmet>
         <title>6 cities: Page not found</title>
       </Helmet>
-      <h1>Ошибка 404. Страница не существует.</h1>
-      <Link to="/">Вернуться на главную страницу</Link>
+      <h1>Error 404. Page not found.</h1>
+      <Link to="/">Go back to the main page</Link>
     </>
   );
 }

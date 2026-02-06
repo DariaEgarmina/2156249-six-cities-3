@@ -9,48 +9,54 @@ import NotFoundScreen from './pages/not-found-screen/not-found-screen';
 import PrivateRoute from './components/private-route/private-route';
 import { useAppSelector } from './hooks';
 import { getOffersLoadingStatus } from './store/offers';
-import LoadingScreen from './pages/loading-screen/loading-screen';
+import Loading from './components/loading/loading';
 import { getAuthStatus } from './store/auth';
+
+const router = createBrowserRouter([
+  {
+    errorElement: <NotFoundScreen />,
+    children: [
+      {
+        path: AppRoute.Main,
+        element: <MainScreen />,
+      },
+      {
+        path: AppRoute.Login,
+        element: <LoginScreen />,
+      },
+      {
+        path: AppRoute.Favorites,
+        element: (
+          <PrivateRoute>
+            <FavoritesScreen />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: AppRoute.Offer,
+        element: <OfferScreen />,
+      },
+      {
+        path: AppRoute.NotFound,
+        element: <NotFoundScreen />,
+      },
+      {
+        path: '*',
+        element: <NotFoundScreen />,
+      },
+    ],
+  },
+]);
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthStatus);
   const isOffersDataLoading = useAppSelector(getOffersLoadingStatus);
 
-  const router = createBrowserRouter([
-    {
-      path: '/',
-      errorElement: <NotFoundScreen />,
-      children: [
-        {
-          path: AppRoute.Main,
-          element: <MainScreen />,
-        },
-        {
-          path: AppRoute.Login,
-          element: <LoginScreen />,
-        },
-        {
-          path: AppRoute.Favorites,
-          element: (
-            <PrivateRoute >
-              <FavoritesScreen />
-            </PrivateRoute>
-          ),
-        },
-        {
-          path: AppRoute.Offer,
-          element: <OfferScreen />,
-        },
-        {
-          path: '*',
-          element: <NotFoundScreen />,
-        },
-      ],
-    },
-  ]);
-
-  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
-    return <LoadingScreen />;
+  if (
+    authorizationStatus === AuthorizationStatus.Unknown ||
+    isOffersDataLoading
+  ) {
+    return <Loading />;
   }
 
   return (

@@ -28,6 +28,9 @@ export const offersSlice = createSlice({
     setSelectedOfferId: (state, action: PayloadAction<string | null>) => {
       state.selectedOfferId = action.payload;
     },
+    clearError(state) {
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -50,6 +53,6 @@ export const offersSlice = createSlice({
   },
 });
 
-export const { setCity, setActiveSort, setSelectedOfferId } =
+export const { setCity, setActiveSort, setSelectedOfferId, clearError } =
   offersSlice.actions;
 export default offersSlice.reducer;

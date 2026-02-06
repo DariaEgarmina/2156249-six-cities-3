@@ -1,26 +1,71 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import clsx from 'clsx';
-import { FullOffer } from '@/types/offer';
 import Header from '@/components/header/header';
 import ReviewForm from '@/components/review-form/review-form';
 import ReviewsList from '@/components/reviews-list/reviews-list';
 import Map from '@/components/map/map';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
+import Loading from '@/components/loading/loading';
 import Badge from '@/components/badge/badge';
 import BookmarkButton from '@/components/bookmark-button/bookmark-button';
 import PlaceCard from '@/components/place-card/place-card';
-import { useAppSelector } from '@/hooks';
-import { getOffers } from '@/store/offers';
+import FullPageError from '@/components/full-page-error/full-page-error';
+import { useAppSelector, useAppDispatch } from '@/hooks';
+import {
+  getOffer,
+  getNearbyOffers,
+  fetchOfferAction,
+  fetchNearbyOffersAction,
+  getIsOfferLoading,
+  getOfferError,
+  getNearbyLoadError,
+  clearError,
+} from '@/store/offer';
+import { getReviews, fetchCommentsAction } from '@/store/reviews';
+import { formatType } from '@/utils';
+import { AppRoute } from '@/const';
+import ErrorPanel from '@/components/error-panel/error-panel';
+import { isAuth } from '@/store/auth';
 
 function OfferScreen(): JSX.Element {
-  const offers = useAppSelector(getOffers);
-  const reviews = useAppSelector((state) => state.reviews);
   const { id } = useParams();
-  const offer = offers.find((item) => item.id === id) as FullOffer;
+  const dispatch = useAppDispatch();
 
-  if (!offer) {
-    return <NotFoundScreen />;
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOfferAction(id))
+        .unwrap()
+        .then(() => {
+          dispatch(fetchNearbyOffersAction(id));
+          dispatch(fetchCommentsAction(id));
+        })
+        .catch(() => {});
+    }
+
+    return () => {
+      dispatch(clearError());
+    };
+  }, [id, dispatch]);
+
+  const isLoading = useAppSelector(getIsOfferLoading);
+  const offer = useAppSelector(getOffer);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const reviews = useAppSelector(getReviews);
+  const error = useAppSelector(getOfferError);
+  const nearbyLoadError = useAppSelector(getNearbyLoadError);
+  const isAuthorized = useAppSelector(isAuth);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (error?.includes('404')) {
+    return <Navigate to={AppRoute.NotFound} replace />;
+  }
+
+  if (error || !offer) {
+    return <FullPageError error={error} />;
   }
 
   const selectedOfferId = offer.id || null;
@@ -43,12 +88,6 @@ function OfferScreen(): JSX.Element {
   const { name, avatarUrl, isPro } = host;
 
   const ratingWidth = `${(Math.round(rating) / 5) * 100}%`;
-
-  const nearbyOffers = offers
-    .filter(
-      (item) => item.city.name === offer.city.name && item.id !== offer.id
-    )
-    .slice(0, 3);
 
   const selectedCity = offer.city;
   const offersForMap = [offer, ...nearbyOffers];
@@ -92,7 +131,7 @@ function OfferScreen(): JSX.Element {
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {type}
+                  {formatType(type)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
                   {bedrooms} {bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
@@ -122,7 +161,7 @@ function OfferScreen(): JSX.Element {
                     className={clsx(
                       'offer__avatar-wrapper',
                       'user__avatar-wrapper',
-                      { 'offer__avatar-wrapper--pro': isPro }
+                      { 'offer__avatar-wrapper--pro': isPro },
                     )}
                   >
                     <img
@@ -146,7 +185,15 @@ function OfferScreen(): JSX.Element {
                   <span className="reviews__amount">{reviews.length}</span>
                 </h2>
                 <ReviewsList reviews={reviews} />
-                <ReviewForm />
+                {isAuthorized ? (
+                  <ReviewForm />
+                ) : (
+                  <div className="reviews__form">
+                    <p className="reviews__message" style={{ color: 'red' }}>
+                      Only authorized users can leave reviews
+                    </p>
+                  </div>
+                )}
               </section>
             </div>
           </div>
@@ -162,15 +209,19 @@ function OfferScreen(): JSX.Element {
             <h2 className="near-places__title">
               Other places in the neighbourhood
             </h2>
-            <div className="near-places__list places__list">
-              {nearbyOffers.map((nearbyOffer) => (
-                <PlaceCard
-                  key={nearbyOffer.id}
-                  offer={nearbyOffer}
-                  cardType="near"
-                />
-              ))}
-            </div>
+            {nearbyLoadError ? (
+              <ErrorPanel message="Failed to load nearby places. Please try again later." />
+            ) : (
+              <div className="near-places__list places__list">
+                {nearbyOffers.map((nearbyOffer) => (
+                  <PlaceCard
+                    key={nearbyOffer.id}
+                    offer={nearbyOffer}
+                    cardType="near"
+                  />
+                ))}
+              </div>
+            )}
           </section>
         </div>
       </main>

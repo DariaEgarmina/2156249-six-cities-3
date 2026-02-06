@@ -1,21 +1,6 @@
-import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
-import { StatusCodes } from 'http-status-codes';
+import axios, { AxiosInstance } from 'axios';
 import { getToken } from './token';
-import { processErrorHandle } from './process-error-handle';
 
-type DetailMessageType = {
-  type: string;
-  message: string;
-};
-
-const StatusCodeMapping: Record<number, boolean> = {
-  [StatusCodes.BAD_REQUEST]: true,
-  [StatusCodes.UNAUTHORIZED]: true,
-  [StatusCodes.NOT_FOUND]: true,
-};
-
-const shouldDisplayError = (response: AxiosResponse) =>
-  !!StatusCodeMapping[response.status];
 
 export const BACKEND_URL = 'https://15.design.htmlacademy.pro/six-cities';
 export const REQUEST_TIMEOUT = 5000;
@@ -26,8 +11,6 @@ export const createAPI = (): AxiosInstance => {
     timeout: REQUEST_TIMEOUT,
   });
 
-  // у меня лезет ошибка, если использую config: AxiosRequestConfig - поэтому пока убрала этот тип
-  //как лучше сделать?
   api.interceptors.request.use((config) => {
     const token = getToken();
 
@@ -37,19 +20,6 @@ export const createAPI = (): AxiosInstance => {
 
     return config;
   });
-
-  api.interceptors.response.use(
-    (response) => response,
-    (error: AxiosError<DetailMessageType>) => {
-      if (error.response && shouldDisplayError(error.response)) {
-        const detailMessage = error.response.data;
-
-        processErrorHandle(detailMessage.message);
-      }
-
-      throw error;
-    }
-  );
 
   return api;
 };

@@ -3,6 +3,7 @@ import { AuthState } from './types';
 import { AuthorizationStatus, NameSpace } from '@/const';
 import { checkAuthAction, loginAction, logoutAction } from './api-actions';
 import { UserData } from '@/types/user-data';
+import { getAuthErrorMessage } from './utils';
 
 const initialState: AuthState = {
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -14,7 +15,11 @@ const initialState: AuthState = {
 export const authSlice = createSlice({
   name: NameSpace.Auth,
   initialState,
-  reducers: {},
+  reducers: {
+    clearAuthError: (state) => {
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(checkAuthAction.pending, (state) => {
@@ -46,7 +51,7 @@ export const authSlice = createSlice({
       )
       .addCase(loginAction.rejected, (state, action) => {
         state.isSubmitting = false;
-        state.error = action.error.message || 'Не удалось войти';
+        state.error = getAuthErrorMessage(action.error.message || '');
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
@@ -56,4 +61,5 @@ export const authSlice = createSlice({
   },
 });
 
+export const { clearAuthError } = authSlice.actions;
 export default authSlice.reducer;

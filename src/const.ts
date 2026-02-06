@@ -5,6 +5,7 @@ export const AppRoute = {
   Login: '/login',
   Favorites: '/favorites',
   Offer: '/offer/:id',
+  NotFound: '/404',
 } as const;
 
 export enum AuthorizationStatus {
@@ -34,6 +35,7 @@ export enum APIRoute {
 
 export enum NameSpace {
   Offers = 'OFFERS',
+  Offer = 'OFFER',
   Auth = 'AUTH',
   Reviews = 'REVIEWS',
   Favorites = 'FAVORITES',
