@@ -8,6 +8,7 @@ import SortingForm from '@/components/sorting-form/sorting-form';
 import OffersList from '@/components/offers-list/offers-list';
 import { City } from '@/types/offer';
 import Map from '@/components/map/map';
+import MainEmpty from '@/components/main-empty/main-empty';
 import { CityCoordinates } from './const';
 import { sortOffers } from '@/utils';
 import { getCity, getOffers, getActiveSort } from '@/store/offers';
@@ -46,15 +47,7 @@ function MainScreen(): JSX.Element {
             })}
           >
             {isEmpty ? (
-              <section className="cities__no-places">
-                <div className="cities__status-wrapper tabs__content">
-                  <b className="cities__status">No places to stay available</b>
-                  <p className="cities__status-description">
-                    We could not find any property available at the moment in{' '}
-                    {activeCity}
-                  </p>
-                </div>
-              </section>
+              <MainEmpty activeCity={activeCity} />
             ) : (
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
