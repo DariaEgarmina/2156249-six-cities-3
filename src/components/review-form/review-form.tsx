@@ -71,7 +71,7 @@ function ReviewForm(): JSX.Element {
               className="form__rating-input visually-hidden"
               name="rating"
               value={value}
-              id={`${value}-star${value === '1' ? '' : 's'}`}
+              id={`${value}-stars`}
               type="radio"
               checked={rating === value}
               onChange={handleRatingChange}

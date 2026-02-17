@@ -52,7 +52,9 @@ function MainScreen(): JSX.Element {
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">
-                  {sortedOffers.length} places to stay in {activeCity}
+                  {sortedOffers.length}{' '}
+                  {sortedOffers.length === 1 ? 'place' : 'places'} to stay in{' '}
+                  {activeCity}
                 </b>
                 <SortingForm currentSort={activeSort} />
                 <OffersList offers={sortedOffers} cardType="main" />
