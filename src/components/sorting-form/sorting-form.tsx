@@ -39,25 +39,27 @@ function SortingForm({ currentSort }: SortingFormProps): JSX.Element {
         </svg>
       </span>
 
-      {isOpen && (
-        <ul className="places__options places__options--custom places__options--opened">
-          {Object.entries(SortOptions).map(([sortKey, option]) => {
-            const key = sortKey as SortType;
-            return (
-              <li
-                key={key}
-                className={clsx('places__option', {
-                  'places__option--active': key === currentSort,
-                })}
-                tabIndex={0}
-                onClick={() => handleOptionClick(key)}
-              >
-                {option}
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      <ul
+        className={clsx('places__options places__options--custom', {
+          'places__options--opened': isOpen,
+        })}
+      >
+        {Object.entries(SortOptions).map(([sortKey, option]) => {
+          const key = sortKey as SortType;
+          return (
+            <li
+              key={key}
+              className={clsx('places__option', {
+                'places__option--active': key === currentSort,
+              })}
+              tabIndex={0}
+              onClick={() => handleOptionClick(key)}
+            >
+              {option}
+            </li>
+          );
+        })}
+      </ul>
     </form>
   );
 }
