@@ -79,7 +79,7 @@ function ReviewForm(): JSX.Element {
             />
             <label
               key={`label-${value}`}
-              htmlFor={`${value}-star${value === '1' ? '' : 's'}`}
+              htmlFor={`${value}-stars`}
               className="reviews__rating-label form__rating-label"
               title={title}
             >
