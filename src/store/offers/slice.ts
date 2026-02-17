@@ -5,6 +5,7 @@ import { NameSpace } from '@/const';
 import { SortType } from '@/types/sort';
 import { Offer } from '@/types/offer';
 import { fetchOffersAction } from './api-actions';
+import { changeFavoriteStatusAction } from '@/store/favorites';
 
 const initialState: OffersState = {
   city: CITIES[0],
@@ -49,7 +50,19 @@ export const offersSlice = createSlice({
         state.isLoading = false;
         state.error =
           action.error.message || 'Не удалось загрузить предложения';
-      });
+      })
+      .addCase(
+        changeFavoriteStatusAction.fulfilled,
+        (state, action: PayloadAction<Offer>) => {
+          const updatedOffer = action.payload;
+          const index = state.offers.findIndex(
+            (offer) => offer.id === updatedOffer.id,
+          );
+          if (index !== -1) {
+            state.offers[index] = updatedOffer;
+          }
+        },
+      );
   },
 });
 

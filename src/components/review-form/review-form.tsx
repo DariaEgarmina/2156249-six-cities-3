@@ -35,8 +35,7 @@ function ReviewForm(): JSX.Element {
         .then(() => {
           setUserComment('');
           setRating('');
-        })
-        .catch(() => {});
+        });
     }
   };
 

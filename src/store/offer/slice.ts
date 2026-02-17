@@ -3,6 +3,7 @@ import { OfferState } from './types';
 import { NameSpace } from '@/const';
 import { fetchOfferAction, fetchNearbyOffersAction } from './api-actions';
 import { FullOffer, Offer } from '@/types/offer';
+import { changeFavoriteStatusAction } from '@/store/favorites';
 
 const initialState: OfferState = {
   offer: null,
@@ -62,10 +63,31 @@ export const offerSlice = createSlice({
           action.error.message || 'Failed to load nearby places';
         state.nearbyToastError =
           action.error.message || 'Failed to load nearby places';
-      });
+      })
+      .addCase(
+        changeFavoriteStatusAction.fulfilled,
+        (state, action: PayloadAction<Offer>) => {
+          const updatedOffer = action.payload;
+
+          if (state.offer?.id === updatedOffer.id && state.offer) {
+            state.offer.isFavorite = updatedOffer.isFavorite;
+          }
+
+          const nearbyIndex = state.nearbyOffers.findIndex(
+            (nearbyOffer) => nearbyOffer.id === updatedOffer.id,
+          );
+          if (nearbyIndex !== -1) {
+            state.nearbyOffers[nearbyIndex] = updatedOffer;
+          }
+        },
+      );
   },
 });
 
-export const { clearOffer, clearError, clearNearbyLoadError, clearNearbyToastError } =
-  offerSlice.actions;
+export const {
+  clearOffer,
+  clearError,
+  clearNearbyLoadError,
+  clearNearbyToastError,
+} = offerSlice.actions;
 export default offerSlice.reducer;

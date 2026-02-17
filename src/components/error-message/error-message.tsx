@@ -5,6 +5,7 @@ import { getError, clearError } from '@/store/offers';
 import { getAuthError, clearAuthError } from '@/store/auth';
 import { getSubmitError, clearReviewsSubmitError } from '@/store/reviews';
 import { getNearbyToastError, clearNearbyToastError } from '@/store/offer';
+import { getFavoritesToastError, clearFavoritesToastError } from '@/store/favorites';
 import { TIMEOUT_SHOW_ERROR } from '@/const';
 
 function ErrorMessage(): JSX.Element | null {
@@ -14,8 +15,14 @@ function ErrorMessage(): JSX.Element | null {
   const authError = useAppSelector(getAuthError);
   const submitReviewsError = useAppSelector(getSubmitError);
   const nearbyError = useAppSelector(getNearbyToastError);
+  const favoritesError = useAppSelector(getFavoritesToastError);
 
-  const error = authError || offersError || submitReviewsError || nearbyError;
+  const error =
+    authError ||
+    offersError ||
+    submitReviewsError ||
+    nearbyError ||
+    favoritesError;
 
   useEffect(() => {
     if (error) {
@@ -28,6 +35,8 @@ function ErrorMessage(): JSX.Element | null {
           dispatch(clearReviewsSubmitError());
         } else if (nearbyError) {
           dispatch(clearNearbyToastError());
+        } else if (favoritesError) {
+          dispatch(clearFavoritesToastError());
         }
       }, TIMEOUT_SHOW_ERROR);
 
@@ -39,6 +48,7 @@ function ErrorMessage(): JSX.Element | null {
     authError,
     submitReviewsError,
     nearbyError,
+    favoritesError,
     dispatch,
   ]);
 

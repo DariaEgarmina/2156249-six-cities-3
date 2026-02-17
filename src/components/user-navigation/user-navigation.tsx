@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '@/hooks';
 import { logoutAction, isAuth, getUserEmail } from '@/store/auth';
 import { AppRoute } from '@/const';
-// Добавить селектор для favoriteCount позже
+import { getFavorites } from '@/store/favorites';
 
 function UserNavigation(): JSX.Element {
   const isAuthorized = useAppSelector(isAuth);
   const userEmail = useAppSelector(getUserEmail);
+  const favorites = useAppSelector(getFavorites);
   const dispatch = useAppDispatch();
-  // const favoriteCount = useAppSelector(/* селектор для избранного */);
 
   const handleLogout = (evt: SyntheticEvent) => {
     evt.preventDefault();
@@ -43,8 +43,7 @@ function UserNavigation(): JSX.Element {
           >
             <div className="header__avatar-wrapper user__avatar-wrapper"></div>
             <span className="header__user-name user__name">{userEmail}</span>
-            <span className="header__favorite-count">{12}</span>
-            {/* Позже использовать вместо числа favoriteCount */}
+            <span className="header__favorite-count">{favorites.length}</span>
           </Link>
         </li>
         <li className="header__nav-item">

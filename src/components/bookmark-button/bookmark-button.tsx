@@ -1,8 +1,14 @@
 import clsx from 'clsx';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { changeFavoriteStatusAction } from '@/store/favorites';
+import { isAuth } from '@/store/auth';
+import { AppRoute } from '@/const';
 
 type BookmarkButtonProps = {
   isFavorite: boolean;
   buttonType: 'card' | 'page';
+  offerId: string;
 };
 
 const sizes = {
@@ -19,8 +25,27 @@ const sizes = {
 function BookmarkButton({
   isFavorite,
   buttonType,
+  offerId,
 }: BookmarkButtonProps): JSX.Element {
   const { width, height } = sizes[buttonType];
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const isAuthorized = useAppSelector(isAuth);
+
+  const handleClick = () => {
+    if (!isAuthorized) {
+      navigate(AppRoute.Login);
+      return;
+    }
+
+    dispatch(
+      changeFavoriteStatusAction({
+        offerId,
+        status: isFavorite ? 0 : 1,
+      }),
+    );
+  };
 
   return (
     <button
@@ -32,6 +57,7 @@ function BookmarkButton({
         'offer__bookmark-button--active': buttonType === 'page' && isFavorite,
       })}
       type="button"
+      onClick={handleClick}
     >
       <svg
         className={clsx({

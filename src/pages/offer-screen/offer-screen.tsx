@@ -118,7 +118,11 @@ function OfferScreen(): JSX.Element {
               {isPremium && <Badge text="Premium" parentType="page" />}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{title}</h1>
-                <BookmarkButton isFavorite={isFavorite} buttonType="page" />
+                <BookmarkButton
+                  isFavorite={isFavorite}
+                  buttonType="page"
+                  offerId={offer.id}
+                />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">

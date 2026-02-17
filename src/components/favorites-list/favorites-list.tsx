@@ -1,24 +1,13 @@
 import { Offer } from '@/types/offer';
 import FavoritesItem from '../favorites-item/favorites-item';
+import { groupByCity } from './utils';
 
 type FavoritesListProps = {
   favorites: Offer[];
 };
 
 function FavoritesList({ favorites }: FavoritesListProps): JSX.Element {
-  const favoritesByCity = favorites.reduce(
-    (acc, offer) => {
-      const cityName = offer.city.name;
-
-      if (!acc[cityName]) {
-        acc[cityName] = [];
-      }
-
-      acc[cityName].push(offer);
-      return acc;
-    },
-    {} as Record<string, Offer[]>,
-  );
+  const favoritesByCity = groupByCity(favorites);
 
   return (
     <ul className="favorites__list">
