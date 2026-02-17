@@ -26,15 +26,14 @@ function MainScreen(): JSX.Element {
   const activeSort = useAppSelector(getActiveSort);
   const selectedOfferId = useAppSelector(getSelectedOfferId);
 
-  const filteredOffers = offers.filter(
-    (offer) => offer.city.name === activeCity,
-  );
-  const isEmpty = filteredOffers.length === 0;
+  const sortedOffers = useMemo(() => {
+    const filteredOffers = offers.filter(
+      (offer) => offer.city.name === activeCity,
+    );
+    return sortOffers(filteredOffers, activeSort);
+  }, [offers, activeSort, activeCity]);
 
-  const sortedOffers = useMemo(
-    () => sortOffers(filteredOffers, activeSort),
-    [filteredOffers, activeSort],
-  );
+  const isEmpty = sortedOffers.length === 0;
 
   return (
     <div className="page page--gray page--main">
@@ -66,7 +65,7 @@ function MainScreen(): JSX.Element {
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">
-                  {filteredOffers.length} places to stay in {activeCity}
+                  {sortedOffers.length} places to stay in {activeCity}
                 </b>
                 <SortingForm currentSort={activeSort} />
                 <OffersList offers={sortedOffers} cardType="main" />
@@ -79,7 +78,7 @@ function MainScreen(): JSX.Element {
                 <Map
                   className="cities__map"
                   city={getCityData(activeCity)}
-                  offers={filteredOffers}
+                  offers={sortedOffers}
                   selectedOfferId={selectedOfferId}
                 />
               </div>
