@@ -68,8 +68,6 @@ function OfferScreen(): JSX.Element {
     return <FullPageError error={error} />;
   }
 
-  const selectedOfferId = offer.id || null;
-
   const {
     title,
     type,
@@ -205,7 +203,6 @@ function OfferScreen(): JSX.Element {
             className="offer__map"
             city={selectedCity}
             offers={offersForMap}
-            selectedOfferId={selectedOfferId}
           />
         </section>
         <div className="container">
