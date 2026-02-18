@@ -7,7 +7,7 @@ import Badge from '../badge/badge';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import { useAppDispatch } from '@/hooks';
 import { setSelectedOfferId } from '@/store/offers';
-import { formatType } from '@/utils';
+import { formatType, calculateRating } from '@/utils';
 
 type PlaceCardProps = {
   offer: Offer;
@@ -28,7 +28,7 @@ function PlaceCard({ offer, cardType }: PlaceCardProps): JSX.Element {
     previewImage,
   } = offer;
   const config = CardConfig[cardType];
-  const ratingWidth = `${(rating / 5) * 100}%`;
+  const ratingWidth = calculateRating(rating);
 
   return (
     <article
@@ -56,7 +56,11 @@ function PlaceCard({ offer, cardType }: PlaceCardProps): JSX.Element {
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
 
-          <BookmarkButton isFavorite={isFavorite} buttonType="card" offerId={id} />
+          <BookmarkButton
+            isFavorite={isFavorite}
+            buttonType="card"
+            offerId={id}
+          />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

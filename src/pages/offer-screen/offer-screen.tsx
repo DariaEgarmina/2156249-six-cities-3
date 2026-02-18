@@ -23,7 +23,7 @@ import {
   clearError,
 } from '@/store/offer';
 import { getReviews, fetchCommentsAction } from '@/store/reviews';
-import { formatType } from '@/utils';
+import { formatType, calculateRating } from '@/utils';
 import { AppRoute } from '@/const';
 import ErrorPanel from '@/components/error-panel/error-panel';
 import { isAuth } from '@/store/auth';
@@ -85,7 +85,7 @@ function OfferScreen(): JSX.Element {
 
   const { name, avatarUrl, isPro } = host;
 
-  const ratingWidth = `${(Math.round(rating) / 5) * 100}%`;
+  const ratingWidth = calculateRating(rating);
 
   const selectedCity = offer.city;
   const offersForMap = [offer, ...nearbyOffers];
