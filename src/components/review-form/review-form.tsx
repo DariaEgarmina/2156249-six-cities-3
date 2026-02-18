@@ -42,8 +42,8 @@ function ReviewForm(): JSX.Element {
 
   const isSubmitDisabled =
     rating === '' ||
-    userComment.length < MIN_REVIEW_LENGTH ||
-    userComment.length > MAX_REVIEW_LENGTH ||
+    userComment.length <= MIN_REVIEW_LENGTH ||
+    userComment.length >= MAX_REVIEW_LENGTH ||
     isSubmitting;
 
   const handleRatingChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,11 +51,7 @@ function ReviewForm(): JSX.Element {
   };
 
   const handleReviewChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const text = evt.target.value;
-
-    if (text.length <= MAX_REVIEW_LENGTH) {
-      setUserComment(text);
-    }
+    setUserComment(evt.target.value);
   };
 
   return (
