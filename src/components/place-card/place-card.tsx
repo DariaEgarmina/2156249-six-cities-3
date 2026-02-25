@@ -17,6 +17,18 @@ type PlaceCardProps = {
 function PlaceCard({ offer, cardType }: PlaceCardProps): JSX.Element {
   const dispatch = useAppDispatch();
 
+  const handleMouseEnter = () => {
+    if (cardType === 'main') {
+      dispatch(setSelectedOfferId(offer.id));
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (cardType === 'main') {
+      dispatch(setSelectedOfferId(null));
+    }
+  };
+
   const {
     id,
     title,
@@ -33,8 +45,8 @@ function PlaceCard({ offer, cardType }: PlaceCardProps): JSX.Element {
   return (
     <article
       className={config.cardClass}
-      onMouseEnter={() => dispatch(setSelectedOfferId(id))}
-      onMouseLeave={() => dispatch(setSelectedOfferId(null))}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {isPremium && <Badge text="Premium" parentType="card" />}
 

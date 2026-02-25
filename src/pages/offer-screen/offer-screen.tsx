@@ -208,6 +208,7 @@ function OfferScreen(): JSX.Element {
             className="offer__map"
             city={selectedCity}
             offers={offersForMap}
+            currentOfferId={offer.id}
           />
         </section>
         <div className="container">
