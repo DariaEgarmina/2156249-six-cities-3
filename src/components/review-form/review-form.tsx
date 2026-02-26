@@ -17,7 +17,7 @@ function ReviewForm(): JSX.Element {
   const [userComment, setUserComment] = useState<string>('');
   const [rating, setRating] = useState<string>('');
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     dispatch(clearReviewsSubmitError());
 
@@ -60,7 +60,7 @@ function ReviewForm(): JSX.Element {
   };
 
   return (
-    <form className="reviews__form form" onSubmit={handleSubmit}>
+    <form className="reviews__form form" onSubmit={handleFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
