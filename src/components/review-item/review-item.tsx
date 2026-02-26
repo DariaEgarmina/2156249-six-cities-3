@@ -1,5 +1,5 @@
 import { Review } from '@/types/review';
-import { formatDate } from '@/utils';
+import { formatDate, calculateRating } from '@/utils';
 
 type ReviewItemProps = {
   review: Review;
@@ -8,6 +8,7 @@ type ReviewItemProps = {
 function ReviewItem({ review }: ReviewItemProps): JSX.Element {
   const { user, rating, comment, date } = review;
   const { name, avatarUrl } = user;
+  const starsWidth = `${calculateRating(rating)}%`;
 
   return (
     <li className="reviews__item">
@@ -26,7 +27,7 @@ function ReviewItem({ review }: ReviewItemProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: `${rating * 20}%` }} />
+            <span style={{ width: starsWidth }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
