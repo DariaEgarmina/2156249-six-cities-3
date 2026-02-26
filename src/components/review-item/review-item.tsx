@@ -1,5 +1,6 @@
 import { Review } from '@/types/review';
-import { formatDate, calculateRating } from '@/utils';
+import { formatDate } from '@/utils';
+import { AppLimit } from '@/const';
 
 type ReviewItemProps = {
   review: Review;
@@ -8,7 +9,7 @@ type ReviewItemProps = {
 function ReviewItem({ review }: ReviewItemProps): JSX.Element {
   const { user, rating, comment, date } = review;
   const { name, avatarUrl } = user;
-  const starsWidth = `${calculateRating(rating)}%`;
+  const starsWidth = `${(rating / AppLimit.MaxRating) * 100}%`;
 
   return (
     <li className="reviews__item">
