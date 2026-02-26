@@ -33,7 +33,7 @@ function BookmarkButton({
   const navigate = useNavigate();
   const isAuthorized = useAppSelector(isAuth);
 
-  const handleClick = () => {
+  const handleBookmarkClick = () => {
     if (!isAuthorized) {
       navigate(AppRoute.Login);
       return;
@@ -57,7 +57,7 @@ function BookmarkButton({
         'offer__bookmark-button--active': buttonType === 'page' && isFavorite,
       })}
       type="button"
-      onClick={handleClick}
+      onClick={handleBookmarkClick}
     >
       <svg
         className={clsx({
