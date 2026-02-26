@@ -11,9 +11,16 @@ function UserNavigation(): JSX.Element {
   const favorites = useAppSelector(getFavorites);
   const dispatch = useAppDispatch();
 
-  const handleLogout = (evt: SyntheticEvent) => {
+  const handleLogoutClick = (evt: SyntheticEvent) => {
     evt.preventDefault();
     dispatch(logoutAction());
+  };
+
+  const handleLogoutKeyDown = (evt: React.KeyboardEvent) => {
+    if (evt.key === 'Enter' || evt.key === ' ') {
+      evt.preventDefault();
+      dispatch(logoutAction());
+    }
   };
 
   if (!isAuthorized) {
@@ -47,20 +54,16 @@ function UserNavigation(): JSX.Element {
           </Link>
         </li>
         <li className="header__nav-item">
-          <a
+          <Link
             className="header__nav-link"
-            href="#"
-            onClick={handleLogout}
-            onKeyDown={(evt) => {
-              if (evt.key === 'Enter' || evt.key === ' ') {
-                handleLogout(evt);
-              }
-            }}
+            to="#"
+            onClick={handleLogoutClick}
+            onKeyDown={handleLogoutKeyDown}
             role="button"
             tabIndex={0}
           >
             <span className="header__signout">Sign out</span>
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>
