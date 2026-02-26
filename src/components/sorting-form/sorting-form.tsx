@@ -20,7 +20,7 @@ function SortingForm({ currentSort }: SortingFormProps): JSX.Element {
     setIsOpen(false);
   });
 
-  const handleSortOptionClick = (option: SortType) => {
+  const handleSortOptionClick = (option: SortType) => () => {
     dispatch(setActiveSort(option));
     setIsOpen(false);
   };
@@ -57,7 +57,7 @@ function SortingForm({ currentSort }: SortingFormProps): JSX.Element {
                 'places__option--active': key === currentSort,
               })}
               tabIndex={0}
-              onClick={() => handleSortOptionClick(key)}
+              onClick={handleSortOptionClick(key)}
             >
               {option}
             </li>
