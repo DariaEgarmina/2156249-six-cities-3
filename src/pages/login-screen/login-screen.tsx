@@ -49,7 +49,7 @@ function LoginScreen(): JSX.Element {
 
   useEffect(() => {
     if (isAuthorized) {
-      navigate('/');
+      navigate(AppRoute.Main);
     }
   }, [isAuthorized, navigate]);
 
