@@ -2,27 +2,27 @@ import { AuthErrorMessages } from './const';
 
 export const getAuthErrorMessage = (errorMessage: string): string => {
   if (errorMessage.includes('401')) {
-    return AuthErrorMessages.UNAUTHORIZED;
+    return AuthErrorMessages.Unauthorized;
   }
 
   if (errorMessage.includes('404')) {
-    return AuthErrorMessages.NOT_FOUND;
+    return AuthErrorMessages.NotFound;
   }
 
   if (errorMessage.includes('400')) {
-    return AuthErrorMessages.BAD_REQUEST;
+    return AuthErrorMessages.BadRequest;
   }
 
   if (
     errorMessage.includes('Network Error') ||
     errorMessage.includes('ERR_NETWORK')
   ) {
-    return AuthErrorMessages.NETWORK_ERROR;
+    return AuthErrorMessages.NetworkError;
   }
 
   if (errorMessage.includes('5')) {
-    return AuthErrorMessages.SERVER_ERROR;
+    return AuthErrorMessages.ServerError;
   }
 
-  return AuthErrorMessages.DEFAULT;
+  return AuthErrorMessages.Default;
 };
