@@ -3,7 +3,7 @@ import ReviewItem from '../review-item/review-item';
 import { useAppSelector } from '@/hooks';
 import { getLoadError } from '@/store/reviews';
 import ErrorPanel from '../error-panel/error-panel';
-import { MAX_REVIEWS_AMOUNT } from '@/const';
+import { AppLimit } from '@/const';
 
 type ReviewsListProps = {
   reviews: Review[];
@@ -18,7 +18,7 @@ function ReviewsList({ reviews }: ReviewsListProps): JSX.Element {
     );
   }
 
-  const displayedReviews = reviews.slice(0, MAX_REVIEWS_AMOUNT);
+  const displayedReviews = reviews.slice(0, AppLimit.Reviews);
 
   return (
     <ul className="reviews__list">

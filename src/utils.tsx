@@ -1,6 +1,6 @@
 import { Offer } from './types/offer';
 import { SortType } from './types/sort';
-import { MAX_RATING } from './const';
+import { AppLimit } from './const';
 
 export const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
@@ -35,6 +35,6 @@ export const formatType = (type: string): string => {
 
 export const calculateRating = (rating: number): string => {
   const roundedRating = Math.round(rating);
-  const percentage = (roundedRating / MAX_RATING) * 100;
+  const percentage = (roundedRating / AppLimit.MaxRating) * 100;
   return `${percentage}%`;
 };

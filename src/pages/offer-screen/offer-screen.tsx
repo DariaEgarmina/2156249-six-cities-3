@@ -24,11 +24,7 @@ import {
 } from '@/store/offer';
 import { getReviews, fetchCommentsAction } from '@/store/reviews';
 import { formatType, calculateRating } from '@/utils';
-import {
-  AppRoute,
-  MAX_NEARBY_OFFERS_AMOUNT,
-  MAX_OFFER_IMAGES_AMOUNT,
-} from '@/const';
+import { AppRoute, AppLimit } from '@/const';
 import ErrorPanel from '@/components/error-panel/error-panel';
 import { isAuth } from '@/store/auth';
 
@@ -90,7 +86,7 @@ function OfferScreen(): JSX.Element {
   const { name, avatarUrl, isPro } = host;
 
   const ratingWidth = calculateRating(rating);
-  const displayedNearbyOffers = nearbyOffers.slice(0, MAX_NEARBY_OFFERS_AMOUNT);
+  const displayedNearbyOffers = nearbyOffers.slice(0, AppLimit.NearbyOffers);
 
   const selectedCity = offer.city;
   const offersForMap = [offer, ...displayedNearbyOffers];
@@ -105,7 +101,7 @@ function OfferScreen(): JSX.Element {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {images.slice(0, MAX_OFFER_IMAGES_AMOUNT).map((image) => (
+              {images.slice(0, AppLimit.OfferImages).map((image) => (
                 <div key={image} className="offer__image-wrapper">
                   <img
                     className="offer__image"

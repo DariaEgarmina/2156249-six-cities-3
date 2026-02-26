@@ -1,12 +1,10 @@
-export const TIMEOUT_SHOW_ERROR = 2000;
-
-export const MAX_RATING = 5;
-
-export const MAX_NEARBY_OFFERS_AMOUNT = 3;
-
-export const MAX_REVIEWS_AMOUNT = 10;
-
-export const MAX_OFFER_IMAGES_AMOUNT = 6;
+export const AppLimit = {
+  TimeoutShowError: 2000,
+  MaxRating: 5,
+  NearbyOffers: 3,
+  Reviews: 10,
+  OfferImages: 6,
+} as const;
 
 export const AppRoute = {
   Main: '/',
