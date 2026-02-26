@@ -1,13 +1,15 @@
 import axios, { AxiosInstance } from 'axios';
 import { getToken } from './token';
 
-export const BACKEND_URL = 'https://15.design.htmlacademy.pro/six-cities';
-export const REQUEST_TIMEOUT = 5000;
+export const ApiConfig = {
+  BackendUrl: 'https://15.design.htmlacademy.pro/six-cities',
+  RequestTimeout: 5000,
+} as const;
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
-    baseURL: BACKEND_URL,
-    timeout: REQUEST_TIMEOUT,
+    baseURL: ApiConfig.BackendUrl,
+    timeout: ApiConfig.RequestTimeout,
   });
 
   api.interceptors.request.use((config) => {
