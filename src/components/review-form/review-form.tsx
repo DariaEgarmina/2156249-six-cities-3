@@ -21,7 +21,12 @@ function ReviewForm(): JSX.Element {
     evt.preventDefault();
     dispatch(clearReviewsSubmitError());
 
-    if (id && rating && userComment.length >= MIN_REVIEW_LENGTH) {
+    if (
+      id &&
+      rating &&
+      userComment.length >= MIN_REVIEW_LENGTH &&
+      userComment.length <= MAX_REVIEW_LENGTH
+    ) {
       dispatch(
         postCommentAction({
           offerId: id,
@@ -42,8 +47,8 @@ function ReviewForm(): JSX.Element {
 
   const isSubmitDisabled =
     rating === '' ||
-    userComment.length <= MIN_REVIEW_LENGTH ||
-    userComment.length >= MAX_REVIEW_LENGTH ||
+    userComment.length < MIN_REVIEW_LENGTH ||
+    userComment.length > MAX_REVIEW_LENGTH ||
     isSubmitting;
 
   const handleRatingChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
