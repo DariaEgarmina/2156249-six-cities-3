@@ -20,9 +20,13 @@ function SortingForm({ currentSort }: SortingFormProps): JSX.Element {
     setIsOpen(false);
   });
 
-  const handleOptionClick = (option: SortType) => {
+  const handleSortOptionClick = (option: SortType) => () => {
     dispatch(setActiveSort(option));
     setIsOpen(false);
+  };
+
+  const handleSortToggleClick = () => {
+    setIsOpen(!isOpen);
   };
 
   return (
@@ -31,7 +35,7 @@ function SortingForm({ currentSort }: SortingFormProps): JSX.Element {
       <span
         className="places__sorting-type"
         tabIndex={0}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={handleSortToggleClick}
       >
         {SortOptions[currentSort]}
         <svg className="places__sorting-arrow" width={7} height={4}>
@@ -53,7 +57,7 @@ function SortingForm({ currentSort }: SortingFormProps): JSX.Element {
                 'places__option--active': key === currentSort,
               })}
               tabIndex={0}
-              onClick={() => handleOptionClick(key)}
+              onClick={handleSortOptionClick(key)}
             >
               {option}
             </li>

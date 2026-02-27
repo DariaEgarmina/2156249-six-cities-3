@@ -11,7 +11,12 @@ import Map from '@/components/map/map';
 import MainEmpty from '@/components/main-empty/main-empty';
 import { CityCoordinates } from './const';
 import { sortOffers } from '@/utils';
-import { getCity, getOffers, getActiveSort } from '@/store/offers';
+import {
+  getCity,
+  getOffers,
+  getActiveSort,
+  getSelectedOfferId,
+} from '@/store/offers';
 
 const getCityData = (cityName: (typeof CITIES)[number]): City =>
   CityCoordinates[cityName] || CityCoordinates['Paris'];
@@ -20,6 +25,7 @@ function MainScreen(): JSX.Element {
   const activeCity = useAppSelector(getCity);
   const offers = useAppSelector(getOffers);
   const activeSort = useAppSelector(getActiveSort);
+  const selectedOfferId = useAppSelector(getSelectedOfferId);
 
   const sortedOffers = useMemo(() => {
     const filteredOffers = offers.filter(
@@ -68,6 +74,7 @@ function MainScreen(): JSX.Element {
                   className="cities__map"
                   city={getCityData(activeCity)}
                   offers={sortedOffers}
+                  selectedOfferId={selectedOfferId}
                 />
               </div>
             )}

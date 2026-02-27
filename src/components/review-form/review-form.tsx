@@ -17,11 +17,16 @@ function ReviewForm(): JSX.Element {
   const [userComment, setUserComment] = useState<string>('');
   const [rating, setRating] = useState<string>('');
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     dispatch(clearReviewsSubmitError());
 
-    if (id && rating && userComment.length >= MIN_REVIEW_LENGTH) {
+    if (
+      id &&
+      rating &&
+      userComment.length >= MIN_REVIEW_LENGTH &&
+      userComment.length <= MAX_REVIEW_LENGTH
+    ) {
       dispatch(
         postCommentAction({
           offerId: id,
@@ -42,8 +47,8 @@ function ReviewForm(): JSX.Element {
 
   const isSubmitDisabled =
     rating === '' ||
-    userComment.length <= MIN_REVIEW_LENGTH ||
-    userComment.length >= MAX_REVIEW_LENGTH ||
+    userComment.length < MIN_REVIEW_LENGTH ||
+    userComment.length > MAX_REVIEW_LENGTH ||
     isSubmitting;
 
   const handleRatingChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,7 +60,7 @@ function ReviewForm(): JSX.Element {
   };
 
   return (
-    <form className="reviews__form form" onSubmit={handleSubmit}>
+    <form className="reviews__form form" onSubmit={handleFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>

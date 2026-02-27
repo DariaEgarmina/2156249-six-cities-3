@@ -6,7 +6,7 @@ import { getAuthError, clearAuthError } from '@/store/auth';
 import { getSubmitError, clearReviewsSubmitError } from '@/store/reviews';
 import { getNearbyToastError, clearNearbyToastError } from '@/store/offer';
 import { getFavoritesToastError, clearFavoritesToastError } from '@/store/favorites';
-import { TIMEOUT_SHOW_ERROR } from '@/const';
+import { AppLimit } from '@/const';
 
 function ErrorMessage(): JSX.Element | null {
   const dispatch = useAppDispatch();
@@ -38,7 +38,7 @@ function ErrorMessage(): JSX.Element | null {
         } else if (favoritesError) {
           dispatch(clearFavoritesToastError());
         }
-      }, TIMEOUT_SHOW_ERROR);
+      }, AppLimit.TimeoutShowError);
 
       return () => clearTimeout(timer);
     }

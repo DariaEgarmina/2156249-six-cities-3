@@ -4,12 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
 import Header from '@/components/header/header';
 import { useAppSelector, useAppDispatch } from '@/hooks';
-import {
-  isAuth,
-  loginAction,
-  getIsSubmitting,
-  // getAuthError,
-} from '@/store/auth';
+import { isAuth, loginAction, getIsSubmitting } from '@/store/auth';
 import { clearAuthError } from '@/store/auth/slice';
 import { CITIES, AppRoute } from '@/const';
 import { setCity } from '@/store/offers';
@@ -22,7 +17,6 @@ function LoginScreen(): JSX.Element {
 
   const isAuthorized = useAppSelector(isAuth);
   const isSubmitting = useAppSelector(getIsSubmitting);
-  // const error = useAppSelector(getAuthError);
 
   const randomCity = useMemo(
     () => CITIES[Math.floor(Math.random() * CITIES.length)],
@@ -32,7 +26,7 @@ function LoginScreen(): JSX.Element {
     dispatch(setCity(randomCity));
   };
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     setLocalError('');
 
@@ -55,7 +49,7 @@ function LoginScreen(): JSX.Element {
 
   useEffect(() => {
     if (isAuthorized) {
-      navigate('/');
+      navigate(AppRoute.Main);
     }
   }, [isAuthorized, navigate]);
 
@@ -76,7 +70,7 @@ function LoginScreen(): JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" onSubmit={handleSubmit}>
+            <form className="login__form form" onSubmit={handleFormSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
