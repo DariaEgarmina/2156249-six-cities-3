@@ -7,6 +7,9 @@ import {
 } from './slice';
 import { CITIES } from '@/const';
 import { OffersState } from './types';
+import { fetchOffersAction } from './api-actions';
+import { changeFavoriteStatusAction } from '../favorites';
+import { makeFakeOffer, makeFakeOffers } from '@/mocks';
 
 describe('offersSlice', () => {
   const initialState: OffersState = {
@@ -72,6 +75,80 @@ describe('offersSlice', () => {
       const result = offersSlice.reducer(stateWithError, action);
 
       expect(result.error).toBeNull();
+    });
+  });
+
+  describe('extra reducers', () => {
+    it('should set isLoading to true and clear error with "fetchOffersAction.pending" action', () => {
+      const action = { type: fetchOffersAction.pending.type };
+      const result = offersSlice.reducer(initialState, action);
+
+      expect(result.isLoading).toBe(true);
+      expect(result.error).toBeNull();
+    });
+
+    it('should set offers and stop loading with "fetchOffersAction.fulfilled" action', () => {
+      const mockOffers = makeFakeOffers(2);
+      const action = {
+        type: fetchOffersAction.fulfilled.type,
+        payload: mockOffers,
+      };
+      const result = offersSlice.reducer(initialState, action);
+
+      expect(result.offers).toEqual(mockOffers);
+      expect(result.isLoading).toBe(false);
+      expect(result.error).toBeNull();
+    });
+
+    it('should set error and stop loading with "fetchOffersAction.rejected" action', () => {
+      const errorMessage = 'Network error';
+      const action = {
+        type: fetchOffersAction.rejected.type,
+        error: { message: errorMessage },
+      };
+      const result = offersSlice.reducer(initialState, action);
+
+      expect(result.isLoading).toBe(false);
+      expect(result.error).toBe(errorMessage);
+    });
+
+    it('should update offer in list with "changeFavoriteStatusAction.fulfilled" action', () => {
+      const mockOffers = makeFakeOffers(2);
+
+      const stateWithOffers = {
+        ...initialState,
+        offers: mockOffers,
+      };
+
+      const updatedOffer = { ...makeFakeOffer('1'), isFavorite: true };
+      const action = {
+        type: changeFavoriteStatusAction.fulfilled.type,
+        payload: updatedOffer,
+      };
+
+      const result = offersSlice.reducer(stateWithOffers, action);
+
+      expect(result.offers[0].isFavorite).toBe(true);
+      expect(result.offers[1].isFavorite).toBe(false);
+    });
+
+    it('should not change state if offer not found with "changeFavoriteStatusAction.fulfilled" action', () => {
+      const mockOffers = makeFakeOffers(1);
+
+      const stateWithOffers = {
+        ...initialState,
+        offers: mockOffers,
+      };
+
+      const updatedOffer = { ...makeFakeOffer('999'), isFavorite: true };
+      const action = {
+        type: changeFavoriteStatusAction.fulfilled.type,
+        payload: updatedOffer,
+      };
+
+      const result = offersSlice.reducer(stateWithOffers, action);
+
+      expect(result.offers).toEqual(mockOffers);
     });
   });
 });
