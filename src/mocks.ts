@@ -1,4 +1,17 @@
+import { Action } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { createAPI } from '@/services/api';
+import { State } from './store';
 import { Offer } from './types/offer';
+
+export type AppThunkDispatch = ThunkDispatch<
+  State,
+  ReturnType<typeof createAPI>,
+  Action
+>;
+
+export const extractActionsTypes = (actions: Action<string>[]) =>
+  actions.map(({ type }) => type);
 
 export const makeFakeOffer = (id: string = '1'): Offer => ({
   id: id,
