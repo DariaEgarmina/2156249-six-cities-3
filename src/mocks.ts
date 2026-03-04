@@ -1,10 +1,11 @@
-import { system, name, internet } from 'faker';
+import { system, name, internet, lorem, date, datatype } from 'faker';
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { createAPI } from '@/services/api';
 import { State } from './store';
 import { Offer, FullOffer } from './types/offer';
 import { UserData } from './types/user-data';
+import { Review } from '@/types/review';
 
 export type AppThunkDispatch = ThunkDispatch<
   State,
@@ -63,3 +64,20 @@ export const makeFakeUserData = (): UserData => ({
   email: internet.email(),
   token: 'secret-token',
 });
+
+export const makeFakeReview = (id: string = '1'): Review => ({
+  id,
+  comment: lorem.paragraph(),
+  date: date.past().toISOString(),
+  rating: datatype.float({ min: 1, max: 5, precision: 0.1 }),
+  user: {
+    name: name.firstName(),
+    avatarUrl: internet.avatar(),
+    isPro: datatype.boolean(),
+  },
+});
+
+export const makeFakeReviews = (count: number): Review[] =>
+  Array.from({ length: count }, (_, index) =>
+    makeFakeReview(String(index + 1)),
+  );
