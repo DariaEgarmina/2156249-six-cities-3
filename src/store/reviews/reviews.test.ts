@@ -4,7 +4,8 @@ import {
   clearReviewsLoadError,
   clearReviewsSubmitError,
 } from './slice';
-import { makeFakeReviews } from '@/mocks';
+import { makeFakeReviews, makeFakeReview } from '@/mocks';
+import { fetchCommentsAction, postCommentAction } from './api-actions';
 
 describe('reviewsSlice', () => {
   const initialState = {
@@ -65,6 +66,102 @@ describe('reviewsSlice', () => {
       );
 
       expect(result.submitError).toBeNull();
+    });
+  });
+
+  describe('extra reducers', () => {
+    describe('fetchCommentsAction', () => {
+      it('should set isLoading to true and clear loadError with "fetchCommentsAction.pending" action', () => {
+        const action = { type: fetchCommentsAction.pending.type };
+        const result = reviewsSlice.reducer(initialState, action);
+
+        expect(result.isLoading).toBe(true);
+        expect(result.loadError).toBeNull();
+      });
+
+      it('should set sorted reviews and stop loading with "fetchCommentsAction.fulfilled" action', () => {
+        const mockReviews = makeFakeReviews(3);
+        const action = {
+          type: fetchCommentsAction.fulfilled.type,
+          payload: mockReviews,
+        };
+        const result = reviewsSlice.reducer(initialState, action);
+
+        const sorted = [...mockReviews].sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+        );
+
+        expect(result.reviews).toEqual(sorted);
+        expect(result.isLoading).toBe(false);
+        expect(result.loadError).toBeNull();
+      });
+
+      it('should set loadError and submitError and stop loading with "fetchCommentsAction.rejected" action', () => {
+        const errorMessage = 'Failed to load reviews';
+        const action = {
+          type: fetchCommentsAction.rejected.type,
+          error: { message: errorMessage },
+        };
+        const result = reviewsSlice.reducer(initialState, action);
+
+        expect(result.isLoading).toBe(false);
+        expect(result.loadError).toBe(errorMessage);
+        expect(result.submitError).toBe(errorMessage);
+      });
+    });
+
+    describe('postCommentAction', () => {
+      it('should set isSubmitting to true and clear submitError with "postCommentAction.pending" action', () => {
+        const action = { type: postCommentAction.pending.type };
+        const result = reviewsSlice.reducer(initialState, action);
+
+        expect(result.isSubmitting).toBe(true);
+        expect(result.submitError).toBeNull();
+      });
+
+      it('should add new review to beginning and stop submitting with "postCommentAction.fulfilled" action', () => {
+        const mockReviews = makeFakeReviews(2);
+        const stateWithReviews = {
+          ...initialState,
+          reviews: mockReviews,
+        };
+
+        const newReview = makeFakeReview('3');
+        const action = {
+          type: postCommentAction.fulfilled.type,
+          payload: newReview,
+        };
+
+        const result = reviewsSlice.reducer(stateWithReviews, action);
+
+        expect(result.reviews).toHaveLength(3);
+        expect(result.reviews[0]).toEqual(newReview);
+        expect(result.isSubmitting).toBe(false);
+        expect(result.submitError).toBeNull();
+      });
+
+      it('should set submitError and stop submitting with "postCommentAction.rejected" action (not 404)', () => {
+        const errorMessage = 'Failed to send comment';
+        const action = {
+          type: postCommentAction.rejected.type,
+          error: { message: errorMessage },
+        };
+        const result = reviewsSlice.reducer(initialState, action);
+
+        expect(result.isSubmitting).toBe(false);
+        expect(result.submitError).toBe(errorMessage);
+      });
+
+      it('should not set submitError with "postCommentAction.rejected" action when error is 404', () => {
+        const action = {
+          type: postCommentAction.rejected.type,
+          error: { message: '404 Not Found' },
+        };
+        const result = reviewsSlice.reducer(initialState, action);
+
+        expect(result.isSubmitting).toBe(false);
+        expect(result.submitError).toBeNull();
+      });
     });
   });
 });
