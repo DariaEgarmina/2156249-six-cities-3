@@ -1,9 +1,10 @@
-import { system, name } from 'faker';
+import { system, name, internet } from 'faker';
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { createAPI } from '@/services/api';
 import { State } from './store';
 import { Offer, FullOffer } from './types/offer';
+import { UserData } from './types/user-data';
 
 export type AppThunkDispatch = ThunkDispatch<
   State,
@@ -53,4 +54,12 @@ export const makeFakeFullOffer = (id: string = '1'): FullOffer => ({
   },
   images: [system.filePath(), system.filePath()],
   maxAdults: 4,
+});
+
+export const makeFakeUserData = (): UserData => ({
+  name: name.firstName(),
+  avatarUrl: system.filePath(),
+  isPro: false,
+  email: internet.email(),
+  token: 'secret-token',
 });
