@@ -2,9 +2,10 @@ import { authSlice, clearAuthError } from './slice';
 import { checkAuthAction, loginAction, logoutAction } from './api-actions';
 import { AuthorizationStatus } from '@/const';
 import { makeFakeUserData } from '@/mocks';
+import { AuthState } from './types';
 
 describe('authSlice', () => {
-  const initialState = {
+  const initialState: AuthState = {
     authorizationStatus: AuthorizationStatus.Unknown,
     userData: null,
     isSubmitting: false,
