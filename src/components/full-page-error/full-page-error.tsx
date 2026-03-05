@@ -10,13 +10,14 @@ function FullPageError({ error }: FullPageErrorProps): JSX.Element {
   };
 
   return (
-    <div className="full-page-error">
+    <div className="full-page-error" data-testid="full-page-error">
       <h1 className="full-page-error__title">Something went wrong</h1>
       <p className="full-page-error__text">{error || 'Failed to load data'}</p>
       <button
         onClick={handleReloadButtonClick}
         className="full-page-error__button"
         type="button"
+        data-testid="reload-button"
       >
         Try again
       </button>
