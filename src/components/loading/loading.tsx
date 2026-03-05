@@ -6,8 +6,9 @@ function Loading(): JSX.Element {
       className="loading-container"
       aria-label="Загрузка данных"
       role="status"
+      data-testid="loading-container"
     >
-      <div className="loader__circle"></div>
+      <div className="loader__circle" data-testid="loader-circle"></div>
     </div>
   );
 }
