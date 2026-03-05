@@ -12,7 +12,7 @@ function ReviewItem({ review }: ReviewItemProps): JSX.Element {
   const starsWidth = `${(rating / AppLimit.MaxRating) * 100}%`;
 
   return (
-    <li className="reviews__item">
+    <li className="reviews__item" data-testid="review-item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img
@@ -21,19 +21,28 @@ function ReviewItem({ review }: ReviewItemProps): JSX.Element {
             width={54}
             height={54}
             alt={`Аватар пользователя ${name}`}
+            data-testid="review-avatar"
           />
         </div>
-        <span className="reviews__user-name">{name}</span>
+        <span className="reviews__user-name" data-testid="review-author">
+          {name}
+        </span>
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: starsWidth }} />
+            <span style={{ width: starsWidth }} data-testid="review-stars" />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <p className="reviews__text">{comment}</p>
-        <time className="reviews__time" dateTime={date}>
+        <p className="reviews__text" data-testid="review-text">
+          {comment}
+        </p>
+        <time
+          className="reviews__time"
+          dateTime={date}
+          data-testid="review-date"
+        >
           {formatDate(date)}
         </time>
       </div>
