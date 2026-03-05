@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import ReviewItem from './review-item';
 import { makeFakeReview } from '@/mocks';
-import { formatDate } from '@/utils';
+import { formatDate } from '@/utils/utils';
 import { AppLimit } from '@/const';
 
 describe('Component: ReviewItem', () => {

@@ -1,6 +1,6 @@
-import { Offer } from './types/offer';
-import { SortType } from './types/sort';
-import { AppLimit } from './const';
+import { Offer } from '../types/offer';
+import { SortType } from '../types/sort';
+import { AppLimit } from '../const';
 
 export const formatDate = (dateString: string): string => {
   const date = new Date(dateString);

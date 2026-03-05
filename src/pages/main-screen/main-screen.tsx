@@ -10,7 +10,7 @@ import { City } from '@/types/offer';
 import Map from '@/components/map/map';
 import MainEmpty from '@/components/main-empty/main-empty';
 import { CityCoordinates } from './const';
-import { sortOffers } from '@/utils';
+import { sortOffers } from '@/utils/utils';
 import {
   getCity,
   getOffers,

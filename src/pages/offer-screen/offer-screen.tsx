@@ -23,7 +23,7 @@ import {
   clearError,
 } from '@/store/offer';
 import { getReviews, fetchCommentsAction } from '@/store/reviews';
-import { formatType, calculateRating } from '@/utils';
+import { formatType, calculateRating } from '@/utils/utils';
 import { AppRoute, AppLimit } from '@/const';
 import ErrorPanel from '@/components/error-panel/error-panel';
 import { isAuth } from '@/store/auth';
