@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import ReviewItem from './review-item';
-import { makeFakeReview } from '@/mocks';
+import { makeFakeReview } from '@/utils/mocks';
 import { formatDate } from '@/utils/utils';
 import { AppLimit } from '@/const';
 

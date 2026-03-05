@@ -6,7 +6,7 @@ import { Action } from 'redux';
 import { State } from '..';
 import { fetchOffersAction } from './api-actions';
 import { APIRoute } from '@/const';
-import { AppThunkDispatch, extractActionsTypes, makeFakeOffers } from '@/mocks';
+import { AppThunkDispatch, extractActionsTypes, makeFakeOffers } from '@/utils/mocks';
 import { CITIES } from '@/const';
 
 describe('Offers async actions', () => {

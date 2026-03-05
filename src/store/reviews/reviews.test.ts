@@ -4,7 +4,7 @@ import {
   clearReviewsLoadError,
   clearReviewsSubmitError,
 } from './slice';
-import { makeFakeReviews, makeFakeReview } from '@/mocks';
+import { makeFakeReviews, makeFakeReview } from '@/utils/mocks';
 import { fetchCommentsAction, postCommentAction } from './api-actions';
 
 describe('reviewsSlice', () => {

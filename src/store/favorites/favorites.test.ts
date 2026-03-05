@@ -8,7 +8,7 @@ import {
   fetchFavoritesAction,
   changeFavoriteStatusAction,
 } from './api-actions';
-import { makeFakeOffer, makeFakeOffers } from '@/mocks';
+import { makeFakeOffer, makeFakeOffers } from '@/utils/mocks';
 
 describe('favoritesSlice', () => {
   const initialState: FavoritesState = {

@@ -2,9 +2,9 @@ import { system, name, internet, lorem, date, datatype } from 'faker';
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { createAPI } from '@/services/api';
-import { State } from './store';
-import { Offer, FullOffer } from './types/offer';
-import { UserData } from './types/user-data';
+import { State } from '../store';
+import { Offer, FullOffer } from '../types/offer';
+import { UserData } from '../types/user-data';
 import { Review } from '@/types/review';
 
 export type AppThunkDispatch = ThunkDispatch<

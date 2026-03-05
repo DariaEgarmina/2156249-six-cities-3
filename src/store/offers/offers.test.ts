@@ -9,7 +9,7 @@ import { CITIES } from '@/const';
 import { OffersState } from './types';
 import { fetchOffersAction } from './api-actions';
 import { changeFavoriteStatusAction } from '../favorites';
-import { makeFakeOffer, makeFakeOffers } from '@/mocks';
+import { makeFakeOffer, makeFakeOffers } from '@/utils/mocks';
 
 describe('offersSlice', () => {
   const initialState: OffersState = {

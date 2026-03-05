@@ -10,7 +10,7 @@ import {
   AppThunkDispatch,
   extractActionsTypes,
   makeFakeUserData,
-} from '@/mocks';
+} from '@/utils/mocks';
 import { AuthorizationStatus } from '@/const';
 import * as tokenStorage from '@/services/token';
 

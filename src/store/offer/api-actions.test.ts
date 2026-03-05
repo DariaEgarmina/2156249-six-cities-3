@@ -11,7 +11,7 @@ import {
   extractActionsTypes,
   makeFakeFullOffer,
   makeFakeOffers,
-} from '@/mocks';
+} from '@/utils/mocks';
 
 describe('Offer async actions', () => {
   const axios = createAPI();

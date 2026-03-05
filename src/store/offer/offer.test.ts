@@ -6,7 +6,7 @@ import {
   clearNearbyLoadError,
   clearNearbyToastError,
 } from './slice';
-import { makeFakeFullOffer, makeFakeOffers, makeFakeOffer } from '@/mocks';
+import { makeFakeFullOffer, makeFakeOffers, makeFakeOffer } from '@/utils/mocks';
 import { fetchOfferAction, fetchNearbyOffersAction } from './api-actions';
 import { changeFavoriteStatusAction } from '../favorites';
 

@@ -11,7 +11,7 @@ import {
   extractActionsTypes,
   makeFakeReview,
   makeFakeReviews,
-} from '@/mocks';
+} from '@/utils/mocks';
 
 describe('Reviews async actions', () => {
   const axios = createAPI();

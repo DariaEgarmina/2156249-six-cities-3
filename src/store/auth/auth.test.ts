@@ -1,7 +1,7 @@
 import { authSlice, clearAuthError } from './slice';
 import { checkAuthAction, loginAction, logoutAction } from './api-actions';
 import { AuthorizationStatus } from '@/const';
-import { makeFakeUserData } from '@/mocks';
+import { makeFakeUserData } from '@/utils/mocks';
 import { AuthState } from './types';
 
 describe('authSlice', () => {

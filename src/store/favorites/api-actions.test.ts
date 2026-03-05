@@ -14,7 +14,7 @@ import {
   extractActionsTypes,
   makeFakeOffers,
   makeFakeOffer,
-} from '@/mocks';
+} from '@/utils/mocks';
 
 describe('Favorites async actions', () => {
   const axios = createAPI();
