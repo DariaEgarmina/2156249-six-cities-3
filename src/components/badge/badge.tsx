@@ -12,6 +12,7 @@ function Badge({ text, parentType }: BadgeProps): JSX.Element {
         'place-card__mark': parentType === 'card',
         'offer__mark': parentType === 'page',
       })}
+      data-testid="badge-container"
     >
       <span>{text}</span>
     </div>
