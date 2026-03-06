@@ -6,6 +6,7 @@ import { State } from '../store';
 import { Offer, FullOffer } from '../types/offer';
 import { UserData } from '../types/user-data';
 import { Review } from '@/types/review';
+import { NameSpace, AuthorizationStatus, CITIES } from '@/const';
 
 export type AppThunkDispatch = ThunkDispatch<
   State,
@@ -81,3 +82,70 @@ export const makeFakeReviews = (count: number): Review[] =>
   Array.from({ length: count }, (_, index) =>
     makeFakeReview(String(index + 1)),
   );
+
+export const makeFakeStore = (initialState?: Partial<State>): State => {
+  const defaultState: State = {
+    [NameSpace.Offers]: {
+      city: CITIES[0],
+      offers: [],
+      activeSort: 'Popular',
+      selectedOfferId: null,
+      isLoading: false,
+      error: null,
+    },
+    [NameSpace.Offer]: {
+      offer: null,
+      nearbyOffers: [],
+      isLoading: false,
+      error: null,
+      nearbyLoadError: null,
+      nearbyToastError: null,
+    },
+    [NameSpace.Auth]: {
+      authorizationStatus: AuthorizationStatus.Unknown,
+      userData: null,
+      isSubmitting: false,
+      error: null,
+    },
+    [NameSpace.Reviews]: {
+      reviews: [],
+      isLoading: false,
+      isSubmitting: false,
+      loadError: null,
+      submitError: null,
+    },
+    [NameSpace.Favorites]: {
+      favorites: [],
+      isLoading: false,
+      favoritesError: null,
+      favoritesToastError: null,
+    },
+  };
+
+  if (!initialState) {
+    return defaultState;
+  }
+
+  return {
+    [NameSpace.Offers]: {
+      ...defaultState[NameSpace.Offers],
+      ...initialState[NameSpace.Offers],
+    },
+    [NameSpace.Offer]: {
+      ...defaultState[NameSpace.Offer],
+      ...initialState[NameSpace.Offer],
+    },
+    [NameSpace.Auth]: {
+      ...defaultState[NameSpace.Auth],
+      ...initialState[NameSpace.Auth],
+    },
+    [NameSpace.Reviews]: {
+      ...defaultState[NameSpace.Reviews],
+      ...initialState[NameSpace.Reviews],
+    },
+    [NameSpace.Favorites]: {
+      ...defaultState[NameSpace.Favorites],
+      ...initialState[NameSpace.Favorites],
+    },
+  };
+};
