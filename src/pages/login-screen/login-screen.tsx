@@ -80,6 +80,7 @@ function LoginScreen(): JSX.Element {
                   placeholder="Email"
                   required
                   disabled={isSubmitting}
+                  data-testid="email-input"
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
@@ -91,6 +92,7 @@ function LoginScreen(): JSX.Element {
                   placeholder="Password"
                   required
                   disabled={isSubmitting}
+                  data-testid="password-input"
                 />
               </div>
               {localError && (
@@ -105,6 +107,7 @@ function LoginScreen(): JSX.Element {
                 className="login__submit form__submit button"
                 type="submit"
                 disabled={isSubmitting}
+                data-testid="submit-button"
               >
                 {isSubmitting ? 'Signing in...' : 'Sign in'}
               </button>
