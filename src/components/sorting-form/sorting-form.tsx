@@ -36,6 +36,7 @@ function SortingForm({ currentSort }: SortingFormProps): JSX.Element {
         className="places__sorting-type"
         tabIndex={0}
         onClick={handleSortToggleClick}
+        data-testid="sort-toggle"
       >
         {SortOptions[currentSort]}
         <svg className="places__sorting-arrow" width={7} height={4}>
@@ -47,6 +48,7 @@ function SortingForm({ currentSort }: SortingFormProps): JSX.Element {
         className={clsx('places__options places__options--custom', {
           'places__options--opened': isOpen,
         })}
+        data-testid="sort-options-list"
       >
         {Object.entries(SortOptions).map(([sortKey, option]) => {
           const key = sortKey as SortType;
@@ -58,6 +60,7 @@ function SortingForm({ currentSort }: SortingFormProps): JSX.Element {
               })}
               tabIndex={0}
               onClick={handleSortOptionClick(key)}
+              data-testid={`sort-option-${key}`}
             >
               {option}
             </li>
