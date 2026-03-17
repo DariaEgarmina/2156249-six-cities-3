@@ -30,6 +30,7 @@ function CitiesTabs({ cities, activeCity }: CitiesTabsProps): JSX.Element {
                 })}
                 to="#"
                 onClick={handleCityClick(city)}
+                data-testid={`city-tab-${city}`}
               >
                 <span>{city}</span>
               </Link>
