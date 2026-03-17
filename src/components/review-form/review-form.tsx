@@ -77,6 +77,7 @@ function ReviewForm(): JSX.Element {
               checked={rating === value}
               onChange={handleRatingChange}
               disabled={isSubmitting}
+              data-testid={`rating-${value}`}
             />
             <label
               key={`label-${value}`}
@@ -99,6 +100,7 @@ function ReviewForm(): JSX.Element {
         value={userComment}
         onChange={handleReviewChange}
         disabled={isSubmitting}
+        data-testid="review-textarea"
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -114,6 +116,7 @@ function ReviewForm(): JSX.Element {
           className="reviews__submit form__submit button"
           type="submit"
           disabled={isSubmitDisabled}
+          data-testid="submit-review-button"
         >
           {isSubmitting ? 'Submitting...' : 'Submit'}
         </button>
