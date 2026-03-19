@@ -31,6 +31,7 @@ function UserNavigation(): JSX.Element {
             <Link
               className="header__nav-link header__nav-link--profile"
               to={AppRoute.Login}
+              data-testid="sign-in-link"
             >
               <div className="header__avatar-wrapper user__avatar-wrapper"></div>
               <span className="header__login">Sign in</span>
@@ -47,6 +48,7 @@ function UserNavigation(): JSX.Element {
           <Link
             className="header__nav-link header__nav-link--profile"
             to={AppRoute.Favorites}
+            data-testid="favorites-link"
           >
             <div className="header__avatar-wrapper user__avatar-wrapper"></div>
             <span className="header__user-name user__name">{userEmail}</span>
@@ -61,6 +63,7 @@ function UserNavigation(): JSX.Element {
             onKeyDown={handleLogoutKeyDown}
             role="button"
             tabIndex={0}
+            data-testid="sign-out-link"
           >
             <span className="header__signout">Sign out</span>
           </Link>
